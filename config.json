@@ -1,0 +1,85 @@
+{
+  "_comment": "Kevala Home — WB True Cost Calculator · Update this file on GitHub to refresh all rates in the app · Last updated: May 2026",
+  "_version": "1.2",
+
+  "stamp_duty": {
+    "_note": "Rates post July 1 2024 — pandemic rebate removed",
+    "kmc_muni_upto_1cr": 0.06,
+    "kmc_muni_above_1cr": 0.07,
+    "panchayat_upto_1cr": 0.05,
+    "panchayat_above_1cr": 0.06,
+    "women_rebate": 0.01,
+    "commercial_kmc_muni": 0.06,
+    "commercial_panchayat": 0.05
+  },
+
+  "registration": {
+    "_note": "Effective rate including processing surcharge",
+    "effective_rate": 0.011
+  },
+
+  "gst": {
+    "_note": "GST only on under-construction. Applied to agreement value.",
+    "affordable_rate": 0.01,
+    "standard_rate": 0.05,
+    "commercial_rate": 0.12,
+    "affordable_max_value": 4500000,
+    "affordable_max_sqm_metro": 60,
+    "affordable_max_sqm_nonmetro": 90
+  },
+
+  "mutation": {
+    "_note": "KMC: per sq ft rate for sale deed. Rural: nominal BLRO fee.",
+    "kmc_muni_per_sqft": 20,
+    "kmc_muni_min": 5000,
+    "panchayat_flat": 500
+  },
+
+  "legal": {
+    "_note": "Estimated advocate fee. No statutory rate — market practice.",
+    "standard_rate": 0.01,
+    "high_value_threshold": 10000000,
+    "high_value_rate": 0.005,
+    "nri_multiplier": 1.5,
+    "minimum_fee": 10000
+  },
+
+  "brokerage": {
+    "_note": "Buyer pays 1% for resale/secondary. Nil for new builder projects.",
+    "resale_rate": 0.01,
+    "new_builder_rate": 0
+  },
+
+  "incidentals": {
+    "_note": "Deed writer (Mohurer), scanning, misc office costs",
+    "upto_25L": 5000,
+    "upto_50L": 8000,
+    "upto_1cr": 12000,
+    "above_1cr": 15000
+  },
+
+  "interior": {
+    "_note": "Rough estimate for basic interior fit-out",
+    "rate_per_sqft": 2000
+  },
+
+  "society": {
+    "_note": "Approximate society deposit: maintenance + club + parking",
+    "upto_600sqft": 50000,
+    "upto_1000sqft": 75000,
+    "upto_1500sqft": 100000,
+    "above_1500sqft": 150000
+  },
+
+  "tds": {
+    "_note": "Buyer deducts TDS from seller. Not buyer's cost but buyer's compliance duty.",
+    "threshold": 5000000,
+    "rate": 0.01
+  },
+
+  "ui": {
+    "disclaimer": "Stamp duty calculated on higher of agreement value or circle rate. Women buyers receive 1% stamp duty rebate. The 2% pandemic rebate ended July 1, 2024. GST applies only to under-construction properties without OC. Affordable housing: value ≤ ₹45L and carpet area ≤ 60 sqm in Kolkata. Registration at 1.1% effective rate. KMC mutation ~₹20/sq ft. Legal fees at 1% (market estimate). Brokerage standard 1% from buyer for resale; nil for new builder. TDS at 1% for properties above ₹50L — deposit via Form 26QB. All figures are estimates. Verify with your Sub-Registrar and legal advisor.",
+    "last_updated": "May 2026",
+    "data_source": "WB Registration Dept, GST Council, WB Urban Development"
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "name": "WB True Cost — Kevala Home",
+  "short_name": "WB Cost",
+  "description": "Calculate the true cost of buying property in West Bengal",
+  "start_url": "/wbcost/",
+  "display": "standalone",
+  "background_color": "#2D1B69",
+  "theme_color": "#2D1B69",
+  "icons": [
+    {
+      "src": "logo.jpg",
+      "sizes": "512x512",
+      "type": "image/jpeg"
+    }
+  ]
+}
