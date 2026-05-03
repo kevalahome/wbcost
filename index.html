@@ -45,6 +45,14 @@
   --shadow:     0 2px 16px rgba(45,27,105,0.12);
 }
 
+/* ─── DESKTOP CONTAINER ──────────────────────────────────────── */
+.app-container{max-width:500px;margin:0 auto;min-height:100vh;position:relative;background:var(--off-white)}
+@media(min-width:501px){
+  body{background:var(--purple-800)}
+  .app-container{box-shadow:0 0 60px rgba(26,13,64,0.4)}
+  .bottom-nav{max-width:500px;left:50%;transform:translateX(-50%)}
+}
+
 /* ─── RESET ─────────────────────────────────────────────────── */
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 html,body{height:100%;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--off-white);color:var(--text-dark)}
@@ -270,7 +278,7 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
   margin-bottom:12px;box-shadow:var(--shadow);
 }
 .about-card h3{font-size:14px;font-weight:700;color:var(--purple-700);margin-bottom:8px;display:flex;gap:6px;align-items:center}
-.about-card p,about-card li{font-size:13px;color:var(--text-dark);line-height:1.6}
+.about-card p,.about-card li{font-size:13px;color:var(--text-dark);line-height:1.6}
 .about-card ul{padding-left:16px;margin-top:6px}
 .about-card li{margin-bottom:4px}
 .link-btn{
@@ -336,6 +344,7 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
 </style>
 </head>
 <body>
+<div class="app-container">
 
 <!-- LOADING BAR -->
 <div class="loading-bar" id="loadingBar"></div>
@@ -367,9 +376,9 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
   <!-- HERO -->
   <div class="hero">
     <div class="hero-badge" style="display:flex;justify-content:center;gap:8px;flex-wrap:wrap">
-  <span>💰 WB Property Calculator</span>
-  <span class="offline-badge" id="offlineBadge">📡 Works Offline</span>
-</div>
+      <span>💰 WB Property Calculator</span>
+      <span class="offline-badge" id="offlineBadge">📡 Works Offline</span>
+    </div>
     <h1>Know Your <em>True Cost</em></h1>
     <p class="hero-sub">Beyond the sticker price — every stamp duty, GST, mutation & fee, Bengal-specific.</p>
     <div class="hero-stats">
@@ -529,7 +538,7 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
         <div class="link-btn-left"><span class="link-btn-name">WB RERA Portal</span><span class="link-btn-url">rera.wb.gov.in</span></div>
         <span class="link-btn-arrow">↗</span>
       </a>
-      <a class="link-btn" href="https://kevalahome.github.io/wbrera" target="_blank" rel="noopener">
+      <a class="link-btn" href="https://wbrera.kevalahome.com" target="_blank" rel="noopener">
         <div class="link-btn-left"><span class="link-btn-name">Kevala RERA Checker</span><span class="link-btn-url">wbrera.kevalahome.com</span></div>
         <span class="link-btn-arrow">↗</span>
       </a>
@@ -584,14 +593,11 @@ let CFG = {
 };
 
 // ─── CONFIG FETCH FROM GITHUB ─────────────────────────────────────
-// Replace this URL with your actual GitHub raw config.json URL:
-// e.g. https://raw.githubusercontent.com/kevalahome/wbcost/main/config.json
 const CONFIG_URL = 'https://raw.githubusercontent.com/kevalahome/wbcost/main/config.json';
 const CACHE_KEY  = 'wbcost_cfg_v2';
-const CACHE_TTL  = 3 * 24 * 60 * 60 * 1000; // 3 days
+const CACHE_TTL  = 3 * 24 * 60 * 60 * 1000;
 
 async function loadConfig(force=false) {
-  // 1. Try to load from cache first (for offline use)
   if (!force) {
     try {
       const cached = JSON.parse(localStorage.getItem(CACHE_KEY)||'{}');
@@ -600,7 +606,6 @@ async function loadConfig(force=false) {
         updateAbout();
         render();
         if (cached.ts && Date.now()-cached.ts > CACHE_TTL) {
-          // Cache is stale — try network refresh silently
           fetchConfigSilently();
         }
         return;
@@ -608,7 +613,6 @@ async function loadConfig(force=false) {
     } catch(e){}
   }
   
-  // 2. No cache — must fetch from network
   document.getElementById('loadingBar').classList.add('show');
   const success = await fetchConfigFromNetwork();
   document.getElementById('loadingBar').classList.remove('show');
@@ -658,10 +662,7 @@ function refreshConfig() {
       showToast('Using cached rates — check connection');
     }
   });
-}  }
 }
-
-function refreshConfig(){ loadConfig(true); }
 
 function updateAbout(){
   const el = document.getElementById('disclaimerText');
@@ -697,7 +698,6 @@ function calc() {
   const isKMCMuni = loc==='kmc'||loc==='muni';
   const isNRI     = buyer==='nri';
 
-  // STAMP DUTY
   let sdRate;
   if(isComm){
     sdRate = isKMCMuni?C.stamp_duty.commercial_kmc_muni:C.stamp_duty.commercial_panchayat;
@@ -711,10 +711,8 @@ function calc() {
   }
   const sd = val*sdRate;
 
-  // REGISTRATION
   const reg = val*C.registration.effective_rate;
 
-  // GST
   let gst=0,gstRate=0,gstNote='',isAffordable=false;
   if(isUC){
     const carpetSqm = area*0.0929;
@@ -727,14 +725,12 @@ function calc() {
     gstNote = isRTM?'Nil — OC received, exempt':isResale?'Nil — resale, GST exempt':'Not applicable';
   }
 
-  // MUTATION
   let mutation=0,mutNote='';
   if(opts.mutation){
     if(isKMCMuni){ mutation=Math.max(C.mutation.kmc_muni_min, area*C.mutation.kmc_muni_per_sqft); mutNote='~₹'+C.mutation.kmc_muni_per_sqft+'/sq ft (KMC sale deed)'; }
     else          { mutation=C.mutation.panchayat_flat; mutNote='BLRO nominal fee (panchayat)'; }
   }
 
-  // LEGAL
   let legal=0,legalNote='';
   if(opts.legal){
     const rate=val>=C.legal.high_value_threshold?C.legal.high_value_rate:C.legal.standard_rate;
@@ -745,14 +741,12 @@ function calc() {
     else legalNote='1% of property value (market estimate)';
   }
 
-  // BROKERAGE
   let broker=0,brokerNote='';
   if(opts.broker){
     if(ptype==='res_uc'){ broker=0; brokerNote='Nil — builder pays broker for new projects'; }
     else { broker=val*C.brokerage.resale_rate; brokerNote='1% from buyer — Kolkata resale standard'; }
   }
 
-  // INCIDENTALS
   let incidental=0;
   if(opts.incidental){
     if(val<2500000) incidental=C.incidentals.upto_25L;
@@ -761,11 +755,9 @@ function calc() {
     else incidental=C.incidentals.above_1cr;
   }
 
-  // INTERIOR
   let interior=0;
   if(opts.interior) interior=area*C.interior.rate_per_sqft;
 
-  // SOCIETY
   let society=0;
   if(opts.society){
     if(area<600) society=C.society.upto_600sqft;
@@ -794,7 +786,6 @@ function render(){
     mutation,mutNote,legal,legalNote,broker,brokerNote,incidental,interior,society,tds,
     govtCharges,profCharges,totalAdditional,trueTotal,hiddenPct,opts} = r;
 
-  // SHOCK BOX
   document.getElementById('trueTotal').textContent = INR(trueTotal);
   document.getElementById('deltaVal').textContent  = PCT(hiddenPct);
   document.getElementById('shockSub').textContent  = 'You pay '+INR(totalAdditional)+' more than the sticker price';
@@ -802,7 +793,6 @@ function render(){
     `Govt taxes: <strong>${INR(govtCharges)}</strong> &nbsp;·&nbsp; Prof. & service fees: <strong>${INR(profCharges)}</strong>`;
   document.getElementById('heroExtra').textContent = PCT(hiddenPct).replace('+','~');
 
-  // ALERTS
   let alertsHTML = '';
   if(val>=CFG.tds.threshold)
     alertsHTML += `<div class="alert alert-red"><span class="alert-icon">⚠️</span><div>TDS Alert: Properties above ₹50L require you to deduct 1% TDS from the seller's payment (${INR(tds)}) and deposit via Form 26QB before registration. Penalty applies for non-compliance.</div></div>`;
@@ -814,7 +804,6 @@ function render(){
     alertsHTML += `<div class="alert alert-green"><span class="alert-icon">✓</span><div>No GST: Ready-to-move and resale properties with OC are fully exempt from GST.</div></div>`;
   document.getElementById('alerts').innerHTML = alertsHTML;
 
-  // SUMMARY CARDS
   document.getElementById('sumCards').innerHTML = `
     <div class="sum-card"><div class="sum-label">Govt. Charges</div><div class="sum-val">${INR(govtCharges)}</div><div class="sum-pct">${PCTS(govtCharges/val)} of price</div></div>
     <div class="sum-card"><div class="sum-label">Other Charges</div><div class="sum-val">${INR(profCharges)}</div><div class="sum-pct">${PCTS(profCharges/val)} of price</div></div>
@@ -822,7 +811,6 @@ function render(){
     <div class="sum-card accent"><div class="sum-label">True Ownership Cost</div><div class="sum-val">${INR(trueTotal)}</div></div>
   `;
 
-  // BREAKDOWN TABLE
   const rows = [
     {name:'Stamp duty',         bc:'b-govt', bn:'Govt', note:`${(sdRate*100).toFixed(0)}% · ${r.isKMCMuni?'Corp/Municipal':'Panchayat/Rural'} rate${r.buyer==='female'?' · Women −1% rebate applied':''}`, amt:sd},
     {name:'Registration fee',   bc:'b-govt', bn:'Govt', note:'1.1% effective rate (1% base + processing)', amt:reg},
@@ -847,7 +835,6 @@ function render(){
   th+=`<tr class="total-row"><td>True cost of ownership</td><td>${INR(trueTotal)}</td></tr>`;
   document.getElementById('bkTable').innerHTML = th;
 
-  // BAR CHART
   const barData=[
     {l:'Stamp duty',   v:sd,    cls:'bar-purple'},
     {l:'Registration', v:reg,   cls:'bar-purple'},
@@ -866,7 +853,6 @@ function render(){
       <div class="bar-track"><div class="bar-fill ${d.cls}" style="width:${(d.v/mx*100).toFixed(1)}%"></div></div>
     </div>`).join('');
 
-  // SMART TIPS
   let tips=[];
   if(isUC&&gst>0) tips.push(`Buying a ready-to-move property saves ${INR(gst)} in GST on this transaction.`);
   if(r.buyer==='male'&&isKMCMuni) tips.push(`Registering in a female co-owner's name saves ${INR(val*0.01)} in stamp duty (1% women's rebate).`);
@@ -880,22 +866,8 @@ function render(){
 // ─── SHARE ────────────────────────────────────────────────────────
 function shareResult(){
   const r = calc();
-  const msg = `🏠 WB Property True Cost (Kevala Home)
-
-Agreement Value: ${INR(r.val)}
-Stamp Duty (${(r.sdRate*100).toFixed(0)}%): ${INR(r.sd)}
-Registration (1.1%): ${INR(r.reg)}
-GST: ${r.gst>0?INR(r.gst):'Nil'}
-Mutation: ${r.opts.mutation?INR(r.mutation):'—'}
-Legal: ${r.opts.legal?INR(r.legal):'—'}
-Brokerage: ${r.broker>0?INR(r.broker):'Nil'}
-─────────────────
-Hidden costs: ${INR(r.totalAdditional)} (+${(r.hiddenPct*100).toFixed(1)}%)
-TRUE TOTAL: ${INR(r.trueTotal)}
-
-Calculate yours free: https://cost.kevalahome.com`;
-  const url = 'https://wa.me/?text='+encodeURIComponent(msg);
-  window.open(url,'_blank');
+  const msg = `🏠 WB Property True Cost (Kevala Home)\n\nAgreement Value: ${INR(r.val)}\nStamp Duty (${(r.sdRate*100).toFixed(0)}%): ${INR(r.sd)}\nRegistration (1.1%): ${INR(r.reg)}\nGST: ${r.gst>0?INR(r.gst):'Nil'}\n─────────────────\nHidden costs: ${INR(r.totalAdditional)} (+${(r.hiddenPct*100).toFixed(1)}%)\nTRUE TOTAL: ${INR(r.trueTotal)}\n\nCalculate yours free: https://cost.kevalahome.com`;
+  window.open('https://wa.me/?text='+encodeURIComponent(msg),'_blank');
 }
 
 // ─── TAB NAVIGATION ───────────────────────────────────────────────
@@ -943,5 +915,6 @@ loadConfig();
 render();
 </script>
 
+</div>
 </body>
 </html>
