@@ -324,6 +324,7 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
   border:1px solid var(--gold-400);
 }
 .toast.show{opacity:1}
+.offline-badge{display:inline-flex;align-items:center;gap:4px;background:rgba(52,211,153,0.15);border:1.5px solid rgba(52,211,153,0.3);color:#34d399;font-size:10px;font-weight:600;padding:3px 8px;border-radius:10px;letter-spacing:0.04em}
 
 /* ─── LOADING ────────────────────────────────────────────────── */
 .loading-bar{
@@ -365,7 +366,10 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
 
   <!-- HERO -->
   <div class="hero">
-    <div class="hero-badge">💰 WB Property Calculator</div>
+    <div class="hero-badge" style="display:flex;justify-content:center;gap:8px;flex-wrap:wrap">
+  <span>💰 WB Property Calculator</span>
+  <span class="offline-badge" id="offlineBadge">📡 Works Offline</span>
+</div>
     <h1>Know Your <em>True Cost</em></h1>
     <p class="hero-sub">Beyond the sticker price — every stamp duty, GST, mutation & fee, Bengal-specific.</p>
     <div class="hero-stats">
@@ -559,6 +563,11 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
      JAVASCRIPT
 ═══════════════════════════════════════════════════════════════ -->
 <script>
+// ─── SERVICE WORKER
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => navigator.serviceWorker.register('/wbcost/sw.js').catch(() => {}));
+}
+
 // ─── CONFIG (fallback defaults — overridden by config.json) ──────
 let CFG = {
   stamp_duty:{kmc_muni_upto_1cr:0.06,kmc_muni_above_1cr:0.07,panchayat_upto_1cr:0.05,panchayat_above_1cr:0.06,women_rebate:0.01,commercial_kmc_muni:0.06,commercial_panchayat:0.05},
@@ -582,34 +591,74 @@ const CACHE_KEY  = 'wbcost_cfg_v2';
 const CACHE_TTL  = 3 * 24 * 60 * 60 * 1000; // 3 days
 
 async function loadConfig(force=false) {
+  // 1. Try to load from cache first (for offline use)
   if (!force) {
     try {
       const cached = JSON.parse(localStorage.getItem(CACHE_KEY)||'{}');
-      if (cached.ts && Date.now()-cached.ts < CACHE_TTL && cached.data) {
-        CFG = {...CFG,...cached.data};
+      if (cached.data) {
+        CFG = {...CFG, ...cached.data};
         updateAbout();
+        render();
+        if (cached.ts && Date.now()-cached.ts > CACHE_TTL) {
+          // Cache is stale — try network refresh silently
+          fetchConfigSilently();
+        }
         return;
       }
     } catch(e){}
   }
+  
+  // 2. No cache — must fetch from network
   document.getElementById('loadingBar').classList.add('show');
+  const success = await fetchConfigFromNetwork();
+  document.getElementById('loadingBar').classList.remove('show');
+  
+  if (!success && force) {
+    showToast('Cannot refresh — check your connection');
+  }
+  
+  updateAbout();
+  render();
+}
+
+async function fetchConfigSilently() {
+  const success = await fetchConfigFromNetwork();
+  if (success) {
+    document.getElementById('updateBadge').style.display = 'inline-block';
+    setTimeout(()=>document.getElementById('updateBadge').style.display='none', 4000);
+    updateAbout();
+    render();
+  }
+}
+
+async function fetchConfigFromNetwork() {
   try {
     const res = await fetch(CONFIG_URL+'?v='+Date.now());
     if (res.ok) {
       const data = await res.json();
-      CFG = {...CFG,...data};
-      localStorage.setItem(CACHE_KEY, JSON.stringify({ts:Date.now(),data}));
-      if(force) showToast('✓ Rates refreshed successfully');
+      CFG = {...CFG, ...data};
+      localStorage.setItem(CACHE_KEY, JSON.stringify({ts:Date.now(), data}));
+      return true;
+    }
+  } catch(e) {}
+  return false;
+}
+
+function refreshConfig() { 
+  document.getElementById('loadingBar').classList.add('show');
+  fetchConfigFromNetwork().then(success => {
+    document.getElementById('loadingBar').classList.remove('show');
+    if (success) {
+      showToast('✓ Rates refreshed');
       document.getElementById('updateBadge').style.display = 'inline-block';
       setTimeout(()=>document.getElementById('updateBadge').style.display='none', 4000);
+      updateAbout();
+      render();
+    } else {
+      showToast('Using cached rates — check connection');
     }
-  } catch(e) {
-    if(force) showToast('Using cached rates — check connection');
-  } finally {
-    document.getElementById('loadingBar').classList.remove('show');
-    updateAbout();
-    render();
-  }
+  });
+}  }
 }
 
 function refreshConfig(){ loadConfig(true); }
