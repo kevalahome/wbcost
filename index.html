@@ -174,8 +174,7 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
     </div>
     <div class="sec-label">Location</div>
     <div class="pills" id="locPills"><div class="pill on" data-v="kmc">KMC / Howrah Corp</div><div class="pill" data-v="muni">Municipality</div><div class="pill" data-v="panchayat">Panchayat / Rural</div></div>
-    <div class="sec-label">Buyer Type</div>
-    <div class="pills" id="buyerPills"><div class="pill on" data-v="male">Male</div><div class="pill" data-v="female">Female (−1% SD)</div><div class="pill" data-v="nri">NRI Buyer</div></div>
+    
     <div class="sec-label">Include in Calculation</div>
     <div class="pills" id="optPills"><div class="pill on" data-v="legal">Legal Fees</div><div class="pill on" data-v="broker">Brokerage</div><div class="pill on" data-v="mutation">Mutation</div><div class="pill on" data-v="incidental">Deed Writer</div><div class="pill" data-v="interior">Interior Est.</div><div class="pill" data-v="society">Society Deposit</div></div>
   </div>
@@ -188,20 +187,7 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
   <div class="section" style="margin-top:12px"><div class="sec-label">Full Breakdown</div><div class="card"><table class="bk-table" id="bkTable"></table></div></div>
   <div class="section"><div class="sec-label">Cost Composition</div><div class="card" id="barChart"></div></div>
   <div class="section"><div class="sec-label">Smart Tips</div><div id="tipsContainer"></div></div>
-  <div class="section"><div class="sec-label">💳 EMI Estimate <span style="font-weight:400;font-size:10px;text-transform:none;letter-spacing:0">(Illustrative)</span></div>
-    <div class="emi-card">
-      <div class="emi-row"><label>Down Payment</label><span><input type="number" id="dp" value="20" min="0" max="90" oninput="updateEMI()"> %</span></div>
-      <div class="emi-row"><label>Interest Rate</label><span><input type="number" id="rate" value="8.5" min="5" max="15" step="0.1" oninput="updateEMI()"> %</span></div>
-      <div class="emi-row"><label>Tenure</label><span><input type="number" id="years" value="20" min="5" max="30" oninput="updateEMI()"> years</span></div>
-      <div class="emi-presets">
-        <span class="emi-preset" onclick="document.getElementById('rate').value='8.0';updateEMI()">8.0% Best</span>
-        <span class="emi-preset" onclick="document.getElementById('rate').value='8.5';updateEMI()">8.5% Typical</span>
-        <span class="emi-preset" onclick="document.getElementById('rate').value='9.5';updateEMI()">9.5% Conservative</span>
-      </div>
-      <div class="emi-output" id="emiOutput">₹ — / month</div>
-      <div class="emi-meta">Illustrative estimate. Actual EMI depends on lender, applicant profile & property type.</div>
-    </div>
-  </div>
+  
   <div class="section">
     <div class="sec-label">🔍 Verify Project</div>
     <div class="card" style="text-align:center;padding:16px;">
@@ -212,13 +198,58 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
   </div>
   <div class="section" style="padding-bottom:16px"><button class="share-btn" onclick="shareResult()" style="width:100%;padding:14px;background:linear-gradient(135deg,var(--pink-600),var(--purple-600));color:#fff;border:none;border-radius:12px;font-size:14px;font-weight:600;cursor:pointer">📤 Share on WhatsApp</button></div>
 </div>
-
+<div class="screen" id="screen-emi">
+  <div class="hero" style="padding:20px 16px 24px">
+    <div class="hero-badge">🏦 EMI Calculator</div>
+    <h1 style="font-size:22px">Monthly <em>Burden</em></h1>
+    <p class="hero-sub">Illustrative estimate — not a loan offer.</p>
+  </div>
+  <div class="section">
+    <div class="card" style="padding:20px">
+      <div class="emi-row" style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;font-size:14px"><label style="font-weight:500">Down Payment</label><span><input type="number" id="dp" value="20" min="0" max="90" style="width:80px;text-align:right;background:var(--purple-50);border:1.5px solid var(--purple-200);border-radius:8px;padding:6px 10px;font-size:14px" oninput="updateEMI()"> %</span></div>
+      <div class="emi-row" style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;font-size:14px"><label style="font-weight:500">Interest Rate</label><span><input type="number" id="rate" value="8.5" min="5" max="15" step="0.1" style="width:80px;text-align:right;background:var(--purple-50);border:1.5px solid var(--purple-200);border-radius:8px;padding:6px 10px;font-size:14px" oninput="updateEMI()"> %</span></div>
+      <div class="emi-row" style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;font-size:14px"><label style="font-weight:500">Tenure</label><span><input type="number" id="years" value="20" min="5" max="30" style="width:80px;text-align:right;background:var(--purple-50);border:1.5px solid var(--purple-200);border-radius:8px;padding:6px 10px;font-size:14px" oninput="updateEMI()"> years</span></div>
+      <div style="display:flex;gap:6px;margin:12px 0;flex-wrap:wrap">
+        <span style="padding:4px 10px;border-radius:14px;border:1px solid var(--purple-200);font-size:11px;cursor:pointer;background:var(--white);color:var(--text-mid)" onclick="document.getElementById('rate').value='8.0';updateEMI()">8.0% Best</span>
+        <span style="padding:4px 10px;border-radius:14px;border:1px solid var(--purple-200);font-size:11px;cursor:pointer;background:var(--white);color:var(--text-mid)" onclick="document.getElementById('rate').value='8.5';updateEMI()">8.5% Typical</span>
+        <span style="padding:4px 10px;border-radius:14px;border:1px solid var(--purple-200);font-size:11px;cursor:pointer;background:var(--white);color:var(--text-mid)" onclick="document.getElementById('rate').value='9.5';updateEMI()">9.5% Conservative</span>
+      </div>
+      <div style="margin-top:16px;padding:16px;background:linear-gradient(135deg,var(--purple-50),var(--gold-50));border-radius:12px;text-align:center">
+        <div style="font-size:12px;color:var(--text-muted);margin-bottom:4px">Estimated Monthly EMI</div>
+        <div style="font-size:28px;font-weight:700;color:var(--purple-700)" id="emiOutput">₹ — / month</div>
+      </div>
+      <p style="font-size:11px;color:var(--text-muted);margin-top:12px;text-align:center;line-height:1.5">Illustrative estimate. Actual EMI depends on lender, applicant profile & property type. <a href="mailto:info@kevalahome.com" style="color:var(--purple);font-weight:500">info@kevalahome.com</a></p>
+    </div>
+  </div>
+</div>
 <div class="screen" id="screen-about">
   <div class="hero" style="padding:20px 16px 24px"><div class="hero-badge">ℹ️ About</div><h1 style="font-size:22px">Every Cost. <em>Explained.</em></h1></div>
-</div>
+  <div class="section">
+    <div class="card">
+      <h3 style="font-size:14px;font-weight:700;color:var(--purple-700);margin-bottom:8px">💡 What This Calculator Covers</h3>
+      <ul style="font-size:13px;color:var(--text-dark);line-height:1.8;padding-left:16px">
+        <li><strong>Stamp Duty</strong> — 5-7% based on location & value</li>
+        <li><strong>Registration Fee</strong> — 1% of property value</li>
+        <li><strong>GST</strong> — 0%, 1%, or 5% depending on property status</li>
+        <li><strong>Mutation</strong> — KMC ~₹20/sqft; rural nominal</li>
+        <li><strong>Legal / Advocate Fee</strong> — market estimate 0.5-1%</li>
+        <li><strong>Brokerage</strong> — 1% for resale; nil for new builder</li>
+        <li><strong>Deed Writer & Incidentals</strong> — ₹5k-15k</li>
+        <li><strong>TDS Alert</strong> — 1% for properties above ₹50L</li>
+      </ul>
+    </div>
+    <div class="card" style="margin-top:12px">
+      <h3 style="font-size:14px;font-weight:700;color:var(--purple-700);margin-bottom:8px">🔗 Official Portals</h3>
+      <a href="https://wbregistration.gov.in" target="_blank" style="display:block;padding:10px;background:var(--purple-50);border-radius:8px;margin-bottom:8px;text-decoration:none;color:var(--purple-700);font-size:13px;font-weight:500">WB Registration & Stamp →</a>
+      <a href="https://kevalahome.github.io/wbrera" target="_blank" style="display:block;padding:10px;background:var(--purple-50);border-radius:8px;text-decoration:none;color:var(--purple-700);font-size:13px;font-weight:500">🔍 Check RERA Status →</a>
+    </div>
+    <p style="text-align:center;font-size:12px;color:var(--text-muted);margin-top:16px">📧 info@kevalahome.com</p>
+  </div>
+</div></div>
 
 <nav class="bottom-nav">
   <button class="nav-btn active" id="nav-calc" onclick="switchTab('calc')"><span class="nav-icon">🧮</span><span class="nav-label">Calculate</span></button>
+<button class="nav-btn" id="nav-emi" onclick="switchTab('emi')"><span class="nav-icon">🏦</span><span class="nav-label">EMI</span></button>
   <button class="nav-btn" id="nav-about" onclick="switchTab('about')"><span class="nav-icon">ℹ️</span><span class="nav-label">About</span></button>
 </nav>
 
@@ -227,7 +258,7 @@ if('serviceWorker'in navigator)window.addEventListener('load',()=>navigator.serv
 
 let CFG={
   stamp_duty:{kmc_muni_upto_1cr:0.06,kmc_muni_above_1cr:0.07,panchayat_upto_1cr:0.05,panchayat_above_1cr:0.06,women_rebate:0.01,commercial_kmc_muni:0.06,commercial_panchayat:0.05},
-  registration:{effective_rate:0.011},
+  registration:{effective_rate:0.01},
   gst:{affordable_rate:0.01,standard_rate:0.05,commercial_rate:0.12,affordable_max_value:4500000,affordable_max_sqm_metro:60},
   mutation:{kmc_muni_per_sqft:20,kmc_muni_min:5000,panchayat_flat:500},
   legal:{standard_rate:0.01,high_value_threshold:10000000,high_value_rate:0.005,nri_multiplier:1.5,minimum_fee:10000},
@@ -257,7 +288,7 @@ async function loadConfig(force){
 async function fetchConfigSilently(){if(await fetchConfigFromNetwork()){document.getElementById('updateBadge').style.display='inline-block';setTimeout(()=>document.getElementById('updateBadge').style.display='none',4000);render()}}
 function refreshConfig(){document.getElementById('loadingBar').classList.add('show');fetchConfigFromNetwork().then(s=>{document.getElementById('loadingBar').classList.remove('show');if(s)showToast('✓ Rates refreshed');else showToast('Using cached rates')})}
 
-let S={val:8000000,area:900,ptype:'res_uc',loc:'kmc',buyer:'male',opts:{legal:true,broker:true,mutation:true,incidental:true,interior:false,society:false}};
+let S={val:8000000,area:900,ptype:'res_uc',loc:'kmc',opts:{legal:true,broker:true,mutation:true,incidental:true,interior:false,society:false}};
 
 // Read URL parameters from RERA app
 (function(){
@@ -274,16 +305,16 @@ const PCT=n=>(n>=0?'+':'')+(n*100).toFixed(1)+'%';
 const PCTS=n=>(n*100).toFixed(1)+'%';
 
 function calc(){
-  const val=S.val, area=S.area, pt=S.ptype, loc=S.loc, buyer=S.buyer, opts=S.opts, C=CFG;
-  const isUC=pt==='res_uc',isRTM=pt==='res_rtm',isResale=pt==='resale',isComm=pt==='commercial',isKMCMuni=loc==='kmc'||loc==='muni',isNRI=buyer==='nri';
+  const val=S.val, area=S.area, pt=S.ptype, loc=S.loc, opts=S.opts, C=CFG;
+  const isUC=pt==='res_uc',isRTM=pt==='res_rtm',isResale=pt==='resale',isComm=pt==='commercial',isKMCMuni=loc==='kmc'||loc==='muni';
   let sdRate;
   if(isComm)sdRate=isKMCMuni?C.stamp_duty.commercial_kmc_muni:C.stamp_duty.commercial_panchayat;
-  else{if(isKMCMuni)sdRate=val>10000000?C.stamp_duty.kmc_muni_above_1cr:C.stamp_duty.kmc_muni_upto_1cr;else sdRate=val>10000000?C.stamp_duty.panchayat_above_1cr:C.stamp_duty.panchayat_upto_1cr;if(buyer==='female')sdRate=Math.max(0.04,sdRate-C.stamp_duty.women_rebate)}
+  else{if(isKMCMuni)sdRate=val>10000000?C.stamp_duty.kmc_muni_above_1cr:C.stamp_duty.kmc_muni_upto_1cr;else sdRate=val>10000000?C.stamp_duty.panchayat_above_1cr:C.stamp_duty.panchayat_upto_1cr}
   const sd=val*sdRate,reg=val*C.registration.effective_rate;
   let gst=0,gstRate=0,gstNote='',isAffordable=false;
   if(isUC){const cs=area*0.0929;isAffordable=val<=C.gst.affordable_max_value&&cs<=C.gst.affordable_max_sqm_metro;if(isComm){gstRate=C.gst.commercial_rate;gstNote='12%'}else if(isAffordable){gstRate=C.gst.affordable_rate;gstNote='1%'}else{gstRate=C.gst.standard_rate;gstNote='5%'}gst=val*gstRate}else{gstNote=isRTM?'Nil':isResale?'Nil':'N/A'}
   let mutation=0,mutNote='';if(opts.mutation){if(isKMCMuni){mutation=Math.max(C.mutation.kmc_muni_min,area*C.mutation.kmc_muni_per_sqft);mutNote='~₹'+C.mutation.kmc_muni_per_sqft+'/sq ft'}else{mutation=C.mutation.panchayat_flat;mutNote='BLRO'}}
-  let legal=0,legalNote='';if(opts.legal){const rate=val>=C.legal.high_value_threshold?C.legal.high_value_rate:C.legal.standard_rate,mul=isNRI?C.legal.nri_multiplier:1;legal=Math.max(C.legal.minimum_fee,val*rate*mul);legalNote=isNRI?'1.5× NRI':val>=C.legal.high_value_threshold?'0.5%':'1%'}
+  let legal=0,legalNote='';if(opts.legal){const rate=val>=C.legal.high_value_threshold?C.legal.high_value_rate:C.legal.standard_rate,mul=isNRI?C.legal.nri_multiplier:1;legal=Math.max(C.legal.minimum_fee,val*rate*mul);legalNote=val>=C.legal.high_value_threshold?'0.5%':'1%'}
   let broker=0,brokerNote='';if(opts.broker){if(pt==='res_uc'){broker=0;brokerNote='Nil'}else{broker=val*C.brokerage.resale_rate;brokerNote='1%'}}
   let incidental=0;if(opts.incidental){if(val<2500000)incidental=C.incidentals.upto_25L;else if(val<5000000)incidental=C.incidentals.upto_50L;else if(val<10000000)incidental=C.incidentals.upto_1cr;else incidental=C.incidentals.above_1cr}
   let interior=0;if(opts.interior)interior=area*C.interior.rate_per_sqft;
@@ -323,8 +354,7 @@ function calculateEMI(P, annualRate, years) {
   return P * r * Math.pow(1 + r, n) / (Math.pow(1 + r, n) - 1);
 }
 
-let windowTotalCost = 0;
-function updateEMI() {
+let windowTotalCost = S.val;function updateEMI() {
   const dp = parseFloat(document.getElementById("dp").value) || 20;
   const rate = parseFloat(document.getElementById("rate").value) || 8.5;
   const years = parseFloat(document.getElementById("years").value) || 20;
@@ -348,7 +378,7 @@ function switchTab(tab){
 function showToast(msg,dur=2500){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),dur)}
 
 function singleGroup(id,key){document.getElementById(id).querySelectorAll('.pill').forEach(p=>{p.addEventListener('click',()=>{document.getElementById(id).querySelectorAll('.pill').forEach(x=>x.classList.remove('on'));p.classList.add('on');S[key]=p.dataset.v;render()})})}
-singleGroup('locPills','loc');singleGroup('buyerPills','buyer');
+singleGroup('locPills','loc');
 document.getElementById('optPills').querySelectorAll('.pill').forEach(p=>{p.addEventListener('click',()=>{p.classList.toggle('on');S.opts[p.dataset.v]=p.classList.contains('on');render()})});
 document.getElementById('val').addEventListener('input',e=>{S.val=parseFloat(e.target.value)||0;render()});
 document.getElementById('area').addEventListener('input',e=>{S.area=parseFloat(e.target.value)||0;render()});
