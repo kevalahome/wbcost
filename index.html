@@ -111,6 +111,17 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
 .loading-bar{height:3px;background:linear-gradient(90deg,var(--purple-600),var(--gold-400),var(--pink-500));background-size:200% 100%;animation:shimmer 1.2s infinite;display:none}
 @keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
 .loading-bar.show{display:block}
+.emi-card{margin-top:16px;padding:16px;background:var(--white);border:1px solid var(--border);border-radius:14px;box-shadow:var(--shadow)}
+.emi-title{font-weight:700;font-size:16px;margin-bottom:12px;color:var(--text-dark)}
+.emi-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;font-size:14px;color:var(--text-dark)}
+.emi-row label{font-weight:500}
+.emi-row input{width:80px;text-align:right;background:var(--purple-50);border:1.5px solid var(--purple-200);border-radius:8px;padding:6px 10px;color:var(--text-dark);font-size:14px;font-weight:500}
+.emi-row input:focus{outline:none;border-color:var(--purple-600)}
+.emi-output{margin-top:12px;padding:12px;background:linear-gradient(135deg,var(--purple-50),var(--gold-50));border-radius:10px;font-size:20px;font-weight:700;color:var(--purple-700);text-align:center}
+.emi-meta{font-size:11px;color:var(--text-muted);margin-top:8px;text-align:center;line-height:1.4}
+.emi-presets{display:flex;gap:6px;margin-top:10px;flex-wrap:wrap}
+.emi-preset{padding:4px 10px;border-radius:14px;border:1px solid var(--purple-200);font-size:11px;cursor:pointer;background:var(--white);color:var(--text-mid)}
+.emi-preset:hover{background:var(--purple-100);border-color:var(--purple-400)}
 </style>
 </head>
 <body>
@@ -177,6 +188,28 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
   <div class="section" style="margin-top:12px"><div class="sec-label">Full Breakdown</div><div class="card"><table class="bk-table" id="bkTable"></table></div></div>
   <div class="section"><div class="sec-label">Cost Composition</div><div class="card" id="barChart"></div></div>
   <div class="section"><div class="sec-label">Smart Tips</div><div id="tipsContainer"></div></div>
+  <div class="section"><div class="sec-label">💳 EMI Estimate <span style="font-weight:400;font-size:10px;text-transform:none;letter-spacing:0">(Illustrative)</span></div>
+    <div class="emi-card">
+      <div class="emi-row"><label>Down Payment</label><span><input type="number" id="dp" value="20" min="0" max="90" oninput="updateEMI()"> %</span></div>
+      <div class="emi-row"><label>Interest Rate</label><span><input type="number" id="rate" value="8.5" min="5" max="15" step="0.1" oninput="updateEMI()"> %</span></div>
+      <div class="emi-row"><label>Tenure</label><span><input type="number" id="years" value="20" min="5" max="30" oninput="updateEMI()"> years</span></div>
+      <div class="emi-presets">
+        <span class="emi-preset" onclick="document.getElementById('rate').value='8.0';updateEMI()">8.0% Best</span>
+        <span class="emi-preset" onclick="document.getElementById('rate').value='8.5';updateEMI()">8.5% Typical</span>
+        <span class="emi-preset" onclick="document.getElementById('rate').value='9.5';updateEMI()">9.5% Conservative</span>
+      </div>
+      <div class="emi-output" id="emiOutput">₹ — / month</div>
+      <div class="emi-meta">Illustrative estimate. Actual EMI depends on lender, applicant profile & property type.</div>
+    </div>
+  </div>
+  <div class="section">
+    <div class="sec-label">🔍 Verify Project</div>
+    <div class="card" style="text-align:center;padding:16px;">
+      <p style="font-size:13px;color:var(--text-muted);margin-bottom:12px;">Before making a decision, check if the project is RERA-registered and view official certificates.</p>
+      <a href="https://kevalahome.github.io/wbrera" target="_blank" style="display:inline-block;width:100%;padding:13px;background:linear-gradient(135deg,var(--purple-600),var(--pink-500));color:#fff;border:none;border-radius:12px;font-size:14px;font-weight:700;text-decoration:none;text-align:center;">🔍 Check RERA Status →</a>
+      <p style="font-size:11px;color:var(--text-muted);margin-top:8px;">Opens WB RERA Check — search by project name or registration number</p>
+    </div>
+  </div>
   <div class="section" style="padding-bottom:16px"><button class="share-btn" onclick="shareResult()" style="width:100%;padding:14px;background:linear-gradient(135deg,var(--pink-600),var(--purple-600));color:#fff;border:none;border-radius:12px;font-size:14px;font-weight:600;cursor:pointer">📤 Share on WhatsApp</button></div>
 </div>
 
@@ -261,6 +294,8 @@ function calc(){
 function render(){
   const r=calc(),{val:v,sd,sdRate,reg,gst,gstNote,isAffordable,isUC,isRTM,isResale,isComm,isNRI,mutation,mutNote,legal,legalNote,broker,brokerNote,incidental,interior,society,tds,govtCharges,profCharges,totalAdditional,trueTotal,hiddenPct,opts}=r;
   document.getElementById('trueTotal').textContent=INR(trueTotal);
+  windowTotalCost = trueTotal;
+  updateEMI();
   document.getElementById('deltaVal').textContent=PCT(hiddenPct);
   document.getElementById('shockDetail').innerHTML=`Govt taxes: <strong>${INR(govtCharges)}</strong> · Prof. fees: <strong>${INR(profCharges)}</strong>`;
   document.getElementById('heroExtra').textContent=PCT(hiddenPct).replace('+','~');
@@ -281,7 +316,22 @@ function render(){
   document.getElementById('area').value=S.area;
   document.getElementById('ptype').value=S.ptype;
 }
+function calculateEMI(P, annualRate, years) {
+  const r = annualRate / 12 / 100;
+  const n = years * 12;
+  if (r === 0 || n === 0) return P / n;
+  return P * r * Math.pow(1 + r, n) / (Math.pow(1 + r, n) - 1);
+}
 
+let windowTotalCost = 0;
+function updateEMI() {
+  const dp = parseFloat(document.getElementById("dp").value) || 20;
+  const rate = parseFloat(document.getElementById("rate").value) || 8.5;
+  const years = parseFloat(document.getElementById("years").value) || 20;
+  const loanAmount = windowTotalCost * (1 - dp / 100);
+  const emi = calculateEMI(loanAmount, rate, years);
+  document.getElementById("emiOutput").innerText = "₹ " + Math.round(emi).toLocaleString("en-IN") + " / month";
+}
 function shareResult(){
   const r=calc();
   const msg=`🏠 WB Property True Cost\n\nAgreement Value: ${INR(r.v)}\nTrue Cost: ${INR(r.trueTotal)} (+${PCT(r.hiddenPct)})\n\nCheck yours: https://cost.kevalahome.com`;
