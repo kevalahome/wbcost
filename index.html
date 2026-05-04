@@ -241,26 +241,25 @@ const PCT=n=>(n>=0?'+':'')+(n*100).toFixed(1)+'%';
 const PCTS=n=>(n*100).toFixed(1)+'%';
 
 function calc(){
-  const{v,a,pt,loc,buyer,opts}=S,C=CFG;
+  const val=S.val, area=S.area, pt=S.ptype, loc=S.loc, buyer=S.buyer, opts=S.opts, C=CFG;
   const isUC=pt==='res_uc',isRTM=pt==='res_rtm',isResale=pt==='resale',isComm=pt==='commercial',isKMCMuni=loc==='kmc'||loc==='muni',isNRI=buyer==='nri';
   let sdRate;
   if(isComm)sdRate=isKMCMuni?C.stamp_duty.commercial_kmc_muni:C.stamp_duty.commercial_panchayat;
-  else{if(isKMCMuni)sdRate=v>10000000?C.stamp_duty.kmc_muni_above_1cr:C.stamp_duty.kmc_muni_upto_1cr;else sdRate=v>10000000?C.stamp_duty.panchayat_above_1cr:C.stamp_duty.panchayat_upto_1cr;if(buyer==='female')sdRate=Math.max(0.04,sdRate-C.stamp_duty.women_rebate)}
-  const sd=v*sdRate,reg=v*C.registration.effective_rate;
+  else{if(isKMCMuni)sdRate=val>10000000?C.stamp_duty.kmc_muni_above_1cr:C.stamp_duty.kmc_muni_upto_1cr;else sdRate=val>10000000?C.stamp_duty.panchayat_above_1cr:C.stamp_duty.panchayat_upto_1cr;if(buyer==='female')sdRate=Math.max(0.04,sdRate-C.stamp_duty.women_rebate)}
+  const sd=val*sdRate,reg=val*C.registration.effective_rate;
   let gst=0,gstRate=0,gstNote='',isAffordable=false;
-  if(isUC){const cs=a*0.0929;isAffordable=v<=C.gst.affordable_max_value&&cs<=C.gst.affordable_max_sqm_metro;if(isComm){gstRate=C.gst.commercial_rate;gstNote='12% on commercial'}else if(isAffordable){gstRate=C.gst.affordable_rate;gstNote='1% affordable'}else{gstRate=C.gst.standard_rate;gstNote='5% on agreement value'}gst=v*gstRate}else{gstNote=isRTM?'Nil — OC received':isResale?'Nil — resale':'Not applicable'}
-  let mutation=0,mutNote='';if(opts.mutation){if(isKMCMuni){mutation=Math.max(C.mutation.kmc_muni_min,a*C.mutation.kmc_muni_per_sqft);mutNote='~₹'+C.mutation.kmc_muni_per_sqft+'/sq ft'}else{mutation=C.mutation.panchayat_flat;mutNote='BLRO nominal'}}
-  let legal=0,legalNote='';if(opts.legal){const rate=v>=C.legal.high_value_threshold?C.legal.high_value_rate:C.legal.standard_rate,mul=isNRI?C.legal.nri_multiplier:1;legal=Math.max(C.legal.minimum_fee,v*rate*mul);legalNote=isNRI?'1.5× NRI':v>=C.legal.high_value_threshold?'0.5% high value':'1% market'}
-  let broker=0,brokerNote='';if(opts.broker){if(pt==='res_uc'){broker=0;brokerNote='Builder pays'}else{broker=v*C.brokerage.resale_rate;brokerNote='1% buyer'}}
-  let incidental=0;if(opts.incidental){if(v<2500000)incidental=C.incidentals.upto_25L;else if(v<5000000)incidental=C.incidentals.upto_50L;else if(v<10000000)incidental=C.incidentals.upto_1cr;else incidental=C.incidentals.above_1cr}
-  let interior=0;if(opts.interior)interior=a*C.interior.rate_per_sqft;
-  let society=0;if(opts.society){if(a<600)society=C.society.upto_600sqft;else if(a<1000)society=C.society.upto_1000sqft;else if(a<1500)society=C.society.upto_1500sqft;else society=C.society.above_1500sqft}
-  const tds=v>=C.tds.threshold?v*C.tds.rate:0,govtCharges=sd+reg+gst,profCharges=mutation+legal+broker+incidental+interior+society,totalAdditional=govtCharges+profCharges,trueTotal=v+totalAdditional,hiddenPct=totalAdditional/v;
-  return{v,area:a,ptype:pt,loc,buyer,opts,isUC,isRTM,isResale,isComm,isNRI,isAffordable,isKMCMuni,sd,sdRate,reg,gst,gstRate,gstNote,mutation,mutNote,legal,legalNote,broker,brokerNote,incidental,interior,society,tds,govtCharges,profCharges,totalAdditional,trueTotal,hiddenPct};
+  if(isUC){const cs=area*0.0929;isAffordable=val<=C.gst.affordable_max_value&&cs<=C.gst.affordable_max_sqm_metro;if(isComm){gstRate=C.gst.commercial_rate;gstNote='12%'}else if(isAffordable){gstRate=C.gst.affordable_rate;gstNote='1%'}else{gstRate=C.gst.standard_rate;gstNote='5%'}gst=val*gstRate}else{gstNote=isRTM?'Nil':isResale?'Nil':'N/A'}
+  let mutation=0,mutNote='';if(opts.mutation){if(isKMCMuni){mutation=Math.max(C.mutation.kmc_muni_min,area*C.mutation.kmc_muni_per_sqft);mutNote='~₹'+C.mutation.kmc_muni_per_sqft+'/sq ft'}else{mutation=C.mutation.panchayat_flat;mutNote='BLRO'}}
+  let legal=0,legalNote='';if(opts.legal){const rate=val>=C.legal.high_value_threshold?C.legal.high_value_rate:C.legal.standard_rate,mul=isNRI?C.legal.nri_multiplier:1;legal=Math.max(C.legal.minimum_fee,val*rate*mul);legalNote=isNRI?'1.5× NRI':val>=C.legal.high_value_threshold?'0.5%':'1%'}
+  let broker=0,brokerNote='';if(opts.broker){if(pt==='res_uc'){broker=0;brokerNote='Nil'}else{broker=val*C.brokerage.resale_rate;brokerNote='1%'}}
+  let incidental=0;if(opts.incidental){if(val<2500000)incidental=C.incidentals.upto_25L;else if(val<5000000)incidental=C.incidentals.upto_50L;else if(val<10000000)incidental=C.incidentals.upto_1cr;else incidental=C.incidentals.above_1cr}
+  let interior=0;if(opts.interior)interior=area*C.interior.rate_per_sqft;
+  let society=0;if(opts.society){if(area<600)society=C.society.upto_600sqft;else if(area<1000)society=C.society.upto_1000sqft;else if(area<1500)society=C.society.upto_1500sqft;else society=C.society.above_1500sqft}
+  const tds=val>=C.tds.threshold?val*C.tds.rate:0,govtCharges=sd+reg+gst,profCharges=mutation+legal+broker+incidental+interior+society,totalAdditional=govtCharges+profCharges,trueTotal=val+totalAdditional,hiddenPct=totalAdditional/val;
+  return{val,area,ptype:pt,loc,buyer,opts,isUC,isRTM,isResale,isComm,isNRI,isAffordable,isKMCMuni,sd,sdRate,reg,gst,gstRate,gstNote,mutation,mutNote,legal,legalNote,broker,brokerNote,incidental,interior,society,tds,govtCharges,profCharges,totalAdditional,trueTotal,hiddenPct};
 }
-
 function render(){
-  const r=calc(),{v,sd,sdRate,reg,gst,gstNote,isAffordable,isUC,isRTM,isResale,isComm,isNRI,mutation,mutNote,legal,legalNote,broker,brokerNote,incidental,interior,society,tds,govtCharges,profCharges,totalAdditional,trueTotal,hiddenPct,opts}=r;
+  const r=calc(),{val:v,sd,sdRate,reg,gst,gstNote,isAffordable,isUC,isRTM,isResale,isComm,isNRI,mutation,mutNote,legal,legalNote,broker,brokerNote,incidental,interior,society,tds,govtCharges,profCharges,totalAdditional,trueTotal,hiddenPct,opts}=r;
   document.getElementById('trueTotal').textContent=INR(trueTotal);
   document.getElementById('deltaVal').textContent=PCT(hiddenPct);
   document.getElementById('shockDetail').innerHTML=`Govt taxes: <strong>${INR(govtCharges)}</strong> · Prof. fees: <strong>${INR(profCharges)}</strong>`;
