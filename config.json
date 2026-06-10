@@ -29,11 +29,14 @@
   },
 
   "mutation": {
-    "_note": "KMC: per sq ft rate for sale deed. Rural: nominal BLRO fee.",
-    "kmc_muni_per_sqft": 20,
-    "kmc_muni_min": 5000,
-    "panchayat_flat": 500
-  },
+  "_note": "KMC: per sq ft for sale deed. NKDA: ₹80/sqft first transfer; 0.5% resale. Rural: nominal BLRO fee.",
+  "kmc_muni_per_sqft": 20,
+  "kmc_muni_min": 5000,
+  "nkda_residential_per_sqft": 80,
+  "nkda_application_fee": 500,
+  "nkda_resale_rate": 0.005,
+  "panchayat_flat": 500
+},
 
   "legal": {
     "_note": "Estimated advocate fee. No statutory rate — market practice.",
