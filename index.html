@@ -241,8 +241,15 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
       </div>
     </div>
     <div class="sec-label">Location</div>
-    <div class="pills" id="locPills"><div class="pill on" data-v="kmc">KMC / Howrah Corp</div><div class="pill" data-v="muni">Municipality</div><div class="pill" data-v="panchayat">Panchayat / Rural</div></div>
-    <div class="sec-label">Include in Calculation</div>
+    <div class="pills" id="locPills"><div class="pill on" data-v="kmc">KMC / Howrah</div><div class="pill" data-v="nkda_new">NKDA New Town</div><div class="pill" data-v="muni">Municipality</div><div class="pill" data-v="panchayat">Panchayat / Rural</div></div>
+<div id="nkdaTransferWrap" style="display:none">
+  <div class="sec-label">NKDA Transfer Type</div>
+  <div class="pills" id="nkdaTypePills">
+    <div class="pill on" data-v="nkda_first">First Transfer (from Developer)</div>
+    <div class="pill" data-v="nkda_resale">Resale / Secondary</div>
+  </div>
+</div>    
+<div class="sec-label">Include in Calculation</div>
     <div class="pills" id="optPills"><div class="pill on" data-v="legal">Legal Fees</div><div class="pill on" data-v="broker">Brokerage</div><div class="pill on" data-v="mutation">Mutation</div><div class="pill on" data-v="incidental">Deed Writer</div><div class="pill" data-v="interior">Interior Est.</div><div class="pill" data-v="society">Society Deposit</div></div>
   </div>
   <!-- STATIC SEO CONTENT — visible to Google, useful to users -->
@@ -408,14 +415,14 @@ const PCT=n=>(n>=0?'+':'')+(n*100).toFixed(1)+'%';
 
 function calc(){
   const val=S.val,area=S.area,pt=S.ptype,loc=S.loc,opts=S.opts,C=CFG;
-  const isUC=pt==='res_uc',isRTM=pt==='res_rtm',isResale=pt==='resale',isComm=pt==='commercial',isKMCMuni=loc==='kmc'||loc==='muni';
+  const isUC=pt==='res_uc',isRTM=pt==='res_rtm',isResale=pt==='resale',isComm=pt==='commercial',isNKDA=loc==='nkda_new'||loc==='nkda_resale',isKMCMuni=loc==='kmc'||loc==='muni'||isNKDA;
   let sdRate;
   if(isComm)sdRate=isKMCMuni?C.stamp_duty.commercial_kmc_muni:C.stamp_duty.commercial_panchayat;
   else{if(isKMCMuni)sdRate=val>10000000?C.stamp_duty.kmc_muni_above_1cr:C.stamp_duty.kmc_muni_upto_1cr;else sdRate=val>10000000?C.stamp_duty.panchayat_above_1cr:C.stamp_duty.panchayat_upto_1cr}
   const sd=val*sdRate,reg=val*C.registration.effective_rate;
   let gst=0,gstRate=0,gstNote='',isAffordable=false;
   if(isUC){const cs=area*0.0929;isAffordable=val<=C.gst.affordable_max_value&&cs<=C.gst.affordable_max_sqm_metro;if(isComm){gstRate=C.gst.commercial_rate;gstNote='12%'}else if(isAffordable){gstRate=C.gst.affordable_rate;gstNote='1%'}else{gstRate=C.gst.standard_rate;gstNote='5%'}gst=val*gstRate}else{gstNote=isRTM?'Nil':isResale?'Nil':'N/A'}
-  let mutation=0,mutNote='';if(opts.mutation){if(isKMCMuni){mutation=Math.max(C.mutation.kmc_muni_min,area*C.mutation.kmc_muni_per_sqft);mutNote='~₹'+C.mutation.kmc_muni_per_sqft+'/sq ft'}else{mutation=C.mutation.panchayat_flat;mutNote='BLRO'}}
+  let mutation=0,mutNote='';if(opts.mutation){if(loc==='nkda_new'||loc==='nkda_resale'){if(loc==='nkda_resale'){mutation=val*(C.mutation.nkda_resale_rate||0.005)+(C.mutation.nkda_application_fee||500);mutNote='0.5% of value'}else{mutation=area*(C.mutation.nkda_residential_per_sqft||80)+(C.mutation.nkda_application_fee||500);mutNote='₹80/sq ft + ₹500'}}else if(isKMCMuni){mutation=Math.max(C.mutation.kmc_muni_min,area*C.mutation.kmc_muni_per_sqft);mutNote='~₹'+C.mutation.kmc_muni_per_sqft+'/sq ft'}else{mutation=C.mutation.panchayat_flat;mutNote='BLRO'}}
   let legal=0,legalNote='';if(opts.legal){const rate=val>=C.legal.high_value_threshold?C.legal.high_value_rate:C.legal.standard_rate;legal=Math.max(C.legal.minimum_fee,val*rate);legalNote=val>=C.legal.high_value_threshold?'0.5%':'1%'}
   let broker=0,brokerNote='';if(opts.broker){if(pt==='res_uc'){broker=0;brokerNote='Nil'}else{broker=val*C.brokerage.resale_rate;brokerNote='1%'}}
   let incidental=0;if(opts.incidental){if(val<2500000)incidental=C.incidentals.upto_25L;else if(val<5000000)incidental=C.incidentals.upto_50L;else if(val<10000000)incidental=C.incidentals.upto_1cr;else incidental=C.incidentals.above_1cr}
@@ -474,7 +481,8 @@ function switchTab(tab){
 
 function showToast(msg,dur=2500){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),dur)}
 function singleGroup(id,key){document.getElementById(id).querySelectorAll('.pill').forEach(p=>{p.addEventListener('click',()=>{document.getElementById(id).querySelectorAll('.pill').forEach(x=>x.classList.remove('on'));p.classList.add('on');S[key]=p.dataset.v;render()})})}
-singleGroup('locPills','loc');
+document.getElementById('locPills').querySelectorAll('.pill').forEach(p=>{p.addEventListener('click',()=>{document.getElementById('locPills').querySelectorAll('.pill').forEach(x=>x.classList.remove('on'));p.classList.add('on');S.loc=p.dataset.v;const isNKDA=p.dataset.v==='nkda_new';document.getElementById('nkdaTransferWrap').style.display=isNKDA?'block':'none';if(isNKDA)S.loc='nkda_new';render()})});
+document.getElementById('nkdaTypePills').querySelectorAll('.pill').forEach(p=>{p.addEventListener('click',()=>{document.getElementById('nkdaTypePills').querySelectorAll('.pill').forEach(x=>x.classList.remove('on'));p.classList.add('on');S.loc=p.dataset.v;render()})});
 document.getElementById('optPills').querySelectorAll('.pill').forEach(p=>{p.addEventListener('click',()=>{p.classList.toggle('on');S.opts[p.dataset.v]=p.classList.contains('on');render()})});
 document.getElementById('val').addEventListener('input',e=>{S.val=parseFloat(e.target.value)||0;render()});
 document.getElementById('area').addEventListener('input',e=>{S.area=parseFloat(e.target.value)||0;render()});
