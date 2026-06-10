@@ -209,6 +209,7 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
 </header>
 
 <div class="toast" id="toast"></div>
+<main>
 
 <!-- CALCULATOR SCREEN -->
 <div class="screen active" id="screen-calc">
@@ -226,12 +227,12 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
   <div class="section"><div class="sec-label">Property Details</div>
     <div class="card">
       <div class="inp-grid">
-        <div class="field"><label>Agreement Value (₹)</label><input type="number" id="val" value="8000000" min="100000" step="50000" inputmode="numeric"></div>
-        <div class="field"><label>Carpet Area (sq ft)</label><input type="number" id="area" value="900" min="50" step="10" inputmode="numeric"></div>
+        <div class="field"><label for="val">Agreement Value (₹)</label><input type="number" id="val" value="8000000" min="100000" step="50000" inputmode="numeric" aria-label="Agreement Value in Rupees"></div>
+        <div class="field"><label for="area">Carpet Area (sq ft)</label><input type="number" id="area" value="900" min="50" step="10" inputmode="numeric" aria-label="Carpet Area in square feet"></div>
       </div>
       <div class="inp-grid single" style="margin-top:10px">
-        <div class="field"><label>Property Type</label>
-          <select id="ptype">
+        <div class="field"><label for="ptype">Property Type</label>
+          <select id="ptype" aria-label="Property Type">
             <option value="res_uc">Residential — Under Construction</option>
             <option value="res_rtm">Residential — Ready to Move (OC)</option>
             <option value="resale">Residential — Resale</option>
@@ -328,9 +329,9 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
 <div class="screen" id="screen-emi">
   <div class="hero" style="padding:20px 16px 24px"><div class="hero-badge">🏦 EMI Calculator</div><h1 style="font-size:22px">Monthly <em>Burden</em></h1><p class="hero-sub">Illustrative estimate — not a loan offer.</p></div>
   <div class="section"><div class="card" style="padding:20px">
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;font-size:14px"><label style="font-weight:500">Down Payment</label><span><input type="number" id="dp" value="20" min="0" max="90" style="width:80px;text-align:right;background:var(--purple-50);border:1.5px solid var(--purple-200);border-radius:8px;padding:6px 10px;font-size:14px" oninput="updateEMI()"> %</span></div>
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;font-size:14px"><label style="font-weight:500">Interest Rate</label><span><input type="number" id="rate" value="8.5" min="5" max="15" step="0.1" style="width:80px;text-align:right;background:var(--purple-50);border:1.5px solid var(--purple-200);border-radius:8px;padding:6px 10px;font-size:14px" oninput="updateEMI()"> %</span></div>
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;font-size:14px"><label style="font-weight:500">Tenure</label><span><input type="number" id="years" value="20" min="5" max="30" style="width:80px;text-align:right;background:var(--purple-50);border:1.5px solid var(--purple-200);border-radius:8px;padding:6px 10px;font-size:14px" oninput="updateEMI()"> years</span></div>
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;font-size:14px"><label for="dp" style="font-weight:500">Down Payment</label><span><input type="number" id="dp" value="20" min="0" max="90" style="width:80px;text-align:right;background:var(--purple-50);border:1.5px solid var(--purple-200);border-radius:8px;padding:6px 10px;font-size:14px" oninput="updateEMI()"> %</span></div>
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;font-size:14px"><label for="rate" style="font-weight:500">Interest Rate</label><span><input type="number" id="rate" value="8.5" min="5" max="15" step="0.1" style="width:80px;text-align:right;background:var(--purple-50);border:1.5px solid var(--purple-200);border-radius:8px;padding:6px 10px;font-size:14px" oninput="updateEMI()"> %</span></div>
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;font-size:14px"><label for="years" style="font-weight:500">Tenure</label><span><input type="number" id="years" value="20" min="5" max="30" style="width:80px;text-align:right;background:var(--purple-50);border:1.5px solid var(--purple-200);border-radius:8px;padding:6px 10px;font-size:14px" oninput="updateEMI()"> years</span></div>
     <div style="display:flex;gap:6px;margin:12px 0;flex-wrap:wrap">
       <span style="padding:4px 10px;border-radius:14px;border:1px solid var(--purple-200);font-size:11px;cursor:pointer;background:var(--white);color:var(--text-mid)" onclick="document.getElementById('rate').value='8.0';updateEMI()">8.0% Best</span>
       <span style="padding:4px 10px;border-radius:14px;border:1px solid var(--purple-200);font-size:11px;cursor:pointer;background:var(--white);color:var(--text-mid)" onclick="document.getElementById('rate').value='8.5';updateEMI()">8.5% Typical</span>
@@ -502,6 +503,7 @@ document.getElementById('ptype').addEventListener('change',e=>{S.ptype=e.target.
 
 loadConfig();render();
 </script>
+</main>
 </div>
 </body>
 </html>
