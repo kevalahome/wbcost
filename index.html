@@ -33,20 +33,32 @@ html,body{min-height:100%;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI
 .brand-sub{font-size:10px;color:var(--gold-400);letter-spacing:0.06em;text-transform:uppercase}
 .header-right{display:flex;align-items:center;gap:8px}
 .icon-btn{background:rgba(255,255,255,0.1);border:none;border-radius:8px;padding:6px 8px;cursor:pointer;font-size:16px;color:var(--white)}
-.hero{background:linear-gradient(160deg,var(--purple-800) 0%,var(--purple-700) 60%,var(--pink-600) 100%);padding:24px 16px 28px;text-align:center}
-.hero-badge{display:inline-flex;align-items:center;gap:5px;background:rgba(240,192,64,0.18);border:1px solid var(--gold-400);border-radius:20px;padding:4px 12px;font-size:11px;color:var(--gold-400);letter-spacing:0.05em;text-transform:uppercase;font-weight:600;margin-bottom:14px}
-.hero h1{font-size:26px;font-weight:700;color:var(--white);line-height:1.2;margin-bottom:6px}
-.hero h1 em{color:var(--gold-400);font-style:normal}
-.hero-sub{font-size:13px;color:var(--purple-200);margin-bottom:18px;line-height:1.5}
+
+/* ── HERO ── */
+.hero{background:linear-gradient(160deg,var(--purple-800) 0%,var(--purple-700) 60%,var(--pink-600) 100%);padding:20px 16px 24px;text-align:center}
+.hero-badge{display:inline-flex;align-items:center;gap:5px;background:rgba(240,192,64,0.18);border:1px solid var(--gold-400);border-radius:20px;padding:4px 12px;font-size:11px;color:var(--gold-400);letter-spacing:0.05em;text-transform:uppercase;font-weight:600;margin-bottom:12px}
+/* Utility strip — NEW */
+.hero-utility{background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.15);border-radius:10px;padding:10px 14px;margin-bottom:14px;text-align:left}
+.hero-utility p{font-size:12px;color:var(--purple-200);line-height:1.6;margin:0}
+.hero-utility strong{color:var(--gold-400)}
+/* Two-line title */
+.hero h1{font-size:24px;font-weight:700;color:var(--white);line-height:1.25;margin-bottom:6px}
+.hero h1 .line1{display:block}
+.hero h1 .line2{display:block;color:var(--gold-400)}
+.hero-sub{font-size:12px;color:var(--purple-200);margin-bottom:14px;line-height:1.5}
 .hero-stats{display:flex;justify-content:center;gap:0}
-.stat-pill{background:rgba(255,255,255,0.1);padding:8px 16px;border:1px solid rgba(255,255,255,0.15);font-size:12px;color:var(--purple-100);display:flex;flex-direction:column;align-items:center}
+.stat-pill{background:rgba(255,255,255,0.1);padding:8px 14px;border:1px solid rgba(255,255,255,0.15);font-size:12px;color:var(--purple-100);display:flex;flex-direction:column;align-items:center}
 .stat-pill:first-child{border-radius:10px 0 0 10px}
 .stat-pill:last-child{border-radius:0 10px 10px 0}
 .stat-pill strong{font-size:16px;color:var(--gold-400);font-weight:700}
 .screen{display:none;padding:0 0 120px}
 .screen.active{display:block}
 .section{padding:16px 16px 0}
-.sec-label{font-size:10px;font-weight:700;color:var(--text-mid);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:8px}
+
+/* Section label with helper text */
+.sec-label{font-size:10px;font-weight:700;color:var(--text-mid);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:4px}
+.sec-helper{font-size:11px;color:var(--text-muted);margin-bottom:8px;line-height:1.4}
+
 .card{background:var(--white);border-radius:14px;border:1px solid var(--border);padding:14px 16px;margin-bottom:12px;box-shadow:var(--shadow)}
 .inp-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:4px}
 .inp-grid.single{grid-template-columns:1fr}
@@ -55,9 +67,52 @@ html,body{min-height:100%;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI
 input[type=number],select{font-family:inherit;font-size:15px;font-weight:500;padding:10px 12px;border:1.5px solid var(--purple-200);border-radius:10px;background:var(--purple-50);color:var(--text-dark);width:100%;-webkit-appearance:none;appearance:none}
 input[type=number]:focus,select:focus{outline:none;border-color:var(--purple-600);background:var(--white)}
 select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%235534B5' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;padding-right:32px}
+.field-hint{font-size:10px;color:var(--text-muted);margin-top:3px;line-height:1.4}
+
+/* Pills */
 .pills{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:4px}
 .pill{padding:6px 13px;border-radius:20px;border:1.5px solid var(--purple-200);background:var(--white);color:var(--text-muted);font-size:13px;font-weight:500;cursor:pointer;transition:all 0.15s;user-select:none}
 .pill.on{background:var(--purple-700);border-color:var(--purple-700);color:var(--white)}
+
+/* Location group with descriptions */
+.loc-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:4px}
+.loc-card{border:1.5px solid var(--purple-200);border-radius:12px;padding:10px 12px;cursor:pointer;background:var(--white);transition:all 0.15s;user-select:none}
+.loc-card.on{background:var(--purple-700);border-color:var(--purple-700)}
+.loc-card-title{font-size:13px;font-weight:600;color:var(--text-dark);margin-bottom:2px}
+.loc-card.on .loc-card-title{color:var(--white)}
+.loc-card-desc{font-size:10px;color:var(--text-muted);line-height:1.4}
+.loc-card.on .loc-card-desc{color:rgba(255,255,255,0.7)}
+
+/* Opt items with descriptions */
+.opt-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:4px}
+.opt-item{border:1.5px solid var(--purple-200);border-radius:12px;padding:10px 12px;cursor:pointer;background:var(--white);transition:all 0.15s;user-select:none;position:relative}
+.opt-item.on{background:var(--purple-50);border-color:var(--purple-600)}
+.opt-item-check{position:absolute;top:8px;right:10px;width:16px;height:16px;border-radius:50%;border:1.5px solid var(--purple-200);display:flex;align-items:center;justify-content:center;font-size:9px;transition:all 0.15s}
+.opt-item.on .opt-item-check{background:var(--purple-700);border-color:var(--purple-700);color:var(--white)}
+.opt-item-title{font-size:12px;font-weight:600;color:var(--text-dark);margin-bottom:2px;padding-right:20px}
+.opt-item-desc{font-size:10px;color:var(--text-muted);line-height:1.4}
+
+/* Expandable rates card */
+.expand-card{background:var(--white);border-radius:14px;border:1px solid var(--border);margin:16px 16px 0;box-shadow:var(--shadow);overflow:hidden}
+.expand-header{display:flex;justify-content:space-between;align-items:center;padding:14px 16px;cursor:pointer;user-select:none}
+.expand-header-left{display:flex;align-items:center;gap:8px}
+.expand-title{font-size:14px;font-weight:700;color:var(--purple-700)}
+.expand-subtitle{font-size:11px;color:var(--text-muted);margin-top:1px}
+.expand-toggle{width:28px;height:28px;border-radius:50%;background:var(--purple-50);border:1px solid var(--purple-200);display:flex;align-items:center;justify-content:center;font-size:13px;transition:transform 0.25s;flex-shrink:0}
+.expand-toggle.open{transform:rotate(180deg)}
+.expand-body{max-height:0;overflow:hidden;transition:max-height 0.35s cubic-bezier(.4,0,.2,1)}
+.expand-body.open{max-height:800px}
+.expand-inner{padding:0 16px 16px}
+
+/* GST lock badge */
+.gst-lock-badge{display:flex;align-items:flex-start;gap:9px;border-radius:10px;padding:10px 13px;font-size:12px;margin:0 16px 0;line-height:1.5}
+.gst-lock-affordable{background:#E8F5E9;border:1px solid #43A047;color:#2E7D32}
+.gst-lock-standard{background:var(--gold-100);border:1px solid var(--gold-600);color:#7a5000}
+.gst-lock-nil{background:var(--purple-100);border:1px solid var(--purple-400);color:var(--purple-700)}
+.gst-lock-icon{font-size:18px;flex-shrink:0;margin-top:1px}
+.gst-lock-text strong{display:block;font-size:13px;margin-bottom:2px}
+
+/* Shock / result */
 .shock-box{background:linear-gradient(135deg,var(--purple-800),var(--purple-700));border-radius:16px;padding:18px;margin:16px 16px 0;box-shadow:0 4px 20px rgba(45,27,105,0.3);border:1px solid var(--purple-600)}
 .shock-top{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
 .shock-left{flex:1}
@@ -185,8 +240,8 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
 </script>
 <meta property="og:site_name" content="Kevala Home">
 <link rel="canonical" href="https://cost.kevalahome.com/">
-<meta property="og:title" content="Stamp Duty & Flat Registration Cost Calculator — Kolkata & WB 2026">
-<meta property="og:description" content="Calculate total flat buying cost in West Bengal — stamp duty, GST, mutation, TDS & all hidden charges. Free tool by Kevala Home.">
+<meta property="og:title" content="Stamp Duty & Property Registration Cost Calculator — Kolkata & WB 2026">
+<meta property="og:description" content="Calculate total property buying cost in West Bengal — stamp duty, GST, mutation, TDS & all hidden charges. Free tool by Kevala Home.">
 <meta property="og:url" content="https://cost.kevalahome.com/">
 <meta property="og:type" content="website"></head>
 <body>
@@ -215,23 +270,46 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
 <div class="screen active" id="screen-calc">
   <div class="hero">
     <div class="hero-badge"><span>💰 Property Cost Calculator</span><span class="offline-badge">📡 Works Offline</span></div>
-    <h1>Flat Registration Cost in <em>Kolkata & WB</em></h1>
-    <p class="hero-sub">Stamp duty, registration fees, GST, mutation & all hidden charges — calculated for Kolkata, Howrah and all of West Bengal. Free & accurate.</p>
+
+    <!-- ① Utility strip: what this app does -->
+    <div class="hero-utility">
+      <p>Buying a property in West Bengal? The price tag is just the beginning. <strong>Stamp duty, GST, registration, mutation and other charges</strong> typically add <strong>10–14% on top</strong> of the agreement value. Enter your property details below to see the exact true cost — and discover where you can save.</p>
+    </div>
+
+    <!-- ② Two-line title, ③ "Property" not "Flat" -->
+    <h1>
+      <span class="line1">Property Registration Cost in</span>
+      <span class="line2">Kolkata &amp; WB</span>
+    </h1>
+    <p class="hero-sub">Stamp duty · registration · GST · mutation · all hidden charges — free &amp; accurate for all of West Bengal.</p>
     <div class="hero-stats">
-      <div class="stat-pill"><strong id="heroExtra">~12%</strong>avg hidden costs</div>
+      <div class="stat-pill"><strong id="heroExtra">~12%</strong>avg extra costs</div>
       <div class="stat-pill"><strong>6</strong>cost heads</div>
       <div class="stat-pill"><strong>Free</strong>always</div>
     </div>
   </div>
 
-  <div class="section"><div class="sec-label">Property Details</div>
+  <!-- ④ Property Details with helper hint -->
+  <div class="section">
+    <div class="sec-label">Property Details <span style="font-size:10px;color:var(--text-muted);font-weight:400;text-transform:none;letter-spacing:0">(enter your property details below)</span></div>
+    <div class="sec-helper">The values below are pre-filled as a sample — replace them with your property's actual details for an accurate estimate.</div>
     <div class="card">
       <div class="inp-grid">
-        <div class="field"><label for="val">Agreement Value (₹)</label><input type="number" id="val" value="8000000" min="100000" step="50000" inputmode="numeric" aria-label="Agreement Value in Rupees"></div>
-        <div class="field"><label for="area">Carpet Area (sq ft)</label><input type="number" id="area" value="900" min="50" step="10" inputmode="numeric" aria-label="Carpet Area in square feet"></div>
+        <div class="field">
+          <label for="val">Agreement Value (₹)</label>
+          <input type="number" id="val" value="8000000" min="100000" step="50000" inputmode="numeric" aria-label="Agreement Value in Rupees">
+          <span class="field-hint">The price written in your sale agreement</span>
+        </div>
+        <!-- ④ Renamed to Property Size -->
+        <div class="field">
+          <label for="area">Property Size (sq ft)</label>
+          <input type="number" id="area" value="900" min="50" step="10" inputmode="numeric" aria-label="Property size in square feet">
+          <span class="field-hint">Use carpet, built-up or super built-up area — any size works</span>
+        </div>
       </div>
       <div class="inp-grid single" style="margin-top:10px">
-        <div class="field"><label for="ptype">Property Type</label>
+        <div class="field">
+          <label for="ptype">Property Type</label>
           <select id="ptype" aria-label="Property Type">
             <option value="res_uc">Residential — Under Construction</option>
             <option value="res_rtm">Residential — Ready to Move (OC)</option>
@@ -241,77 +319,147 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
         </div>
       </div>
     </div>
-    <div class="sec-label">Location</div>
-    <div class="pills" id="locPills"><div class="pill on" data-v="kmc">KMC / Howrah</div><div class="pill" data-v="nkda_new">NKDA New Town</div><div class="pill" data-v="muni">Municipality</div><div class="pill" data-v="panchayat">Panchayat / Rural</div></div>
-<div id="nkdaTransferWrap" style="display:none">
-  <div class="sec-label">NKDA Transfer Type</div>
-  <div class="pills" id="nkdaTypePills">
-    <div class="pill on" data-v="nkda_first">First Transfer (from Developer)</div>
-    <div class="pill" data-v="nkda_resale">Resale / Secondary</div>
+
+    <!-- ⑥ Location — self-explanatory cards -->
+    <div class="sec-label">Your Property's Location</div>
+    <div class="sec-helper">Select the administrative area where the property is located — this determines your stamp duty rate.</div>
+    <div class="loc-grid" id="locGrid">
+      <div class="loc-card on" data-v="kmc">
+        <div class="loc-card-title">🏙️ KMC / Howrah</div>
+        <div class="loc-card-desc">Kolkata Municipal Corp. or Howrah Corporation — highest stamp duty bracket</div>
+      </div>
+      <div class="loc-card" data-v="nkda_new">
+        <div class="loc-card-title">🏢 NKDA New Town</div>
+        <div class="loc-card-desc">New Town (Rajarhat) under HIDCO / WBHB — special mutation structure</div>
+      </div>
+      <div class="loc-card" data-v="muni">
+        <div class="loc-card-title">🏘️ Municipality</div>
+        <div class="loc-card-desc">Any notified municipal town in WB outside KMC/Howrah/NKDA</div>
+      </div>
+      <div class="loc-card" data-v="panchayat">
+        <div class="loc-card-title">🌾 Panchayat / Rural</div>
+        <div class="loc-card-desc">Rural or gram panchayat area — lower stamp duty, nominal mutation</div>
+      </div>
+    </div>
+
+    <div id="nkdaTransferWrap" style="display:none;margin-top:8px">
+      <div class="sec-label">NKDA Transfer Type</div>
+      <div class="sec-helper">Choose whether you're buying directly from the developer (first transfer) or from a previous owner (resale).</div>
+      <div class="pills" id="nkdaTypePills">
+        <div class="pill on" data-v="nkda_first">First Transfer (from Developer)</div>
+        <div class="pill" data-v="nkda_resale">Resale / Secondary</div>
+      </div>
+    </div>
+
+    <!-- ⑥ Include in Calculation — self-explanatory opt items -->
+    <div class="sec-label" style="margin-top:16px">What to Include in Your Estimate</div>
+    <div class="sec-helper">Tick the charges that apply to your purchase. Mandatory government charges (stamp duty, registration, GST) are always included. The items below are optional or situational.</div>
+    <div class="opt-grid" id="optGrid">
+      <div class="opt-item on" data-v="legal">
+        <div class="opt-item-check">✓</div>
+        <div class="opt-item-title">⚖️ Legal Fees</div>
+        <div class="opt-item-desc">Advocate charges for deed drafting & title verification (~0.5–1%)</div>
+      </div>
+      <div class="opt-item on" data-v="broker">
+        <div class="opt-item-check">✓</div>
+        <div class="opt-item-title">🤝 Brokerage</div>
+        <div class="opt-item-desc">Agent commission — typically 1% for resale; nil for new builder flats</div>
+      </div>
+      <div class="opt-item on" data-v="mutation">
+        <div class="opt-item-check">✓</div>
+        <div class="opt-item-title">📋 Mutation</div>
+        <div class="opt-item-desc">Fee to transfer property records to your name at the municipality</div>
+      </div>
+      <div class="opt-item on" data-v="incidental">
+        <div class="opt-item-check">✓</div>
+        <div class="opt-item-title">✍️ Deed Writer</div>
+        <div class="opt-item-desc">Deed writer, notary & misc. registration-day charges (₹5k–15k)</div>
+      </div>
+      <div class="opt-item" data-v="interior">
+        <div class="opt-item-check"></div>
+        <div class="opt-item-title">🛋️ Interior Est.</div>
+        <div class="opt-item-desc">Rough estimate for basic interior fit-out (~₹2,000/sq ft)</div>
+      </div>
+      <div class="opt-item" data-v="society">
+        <div class="opt-item-check"></div>
+        <div class="opt-item-title">🏗️ Society Deposit</div>
+        <div class="opt-item-desc">One-time corpus or maintenance deposit to housing society</div>
+      </div>
+    </div>
   </div>
-</div>    
-<div class="sec-label">Include in Calculation</div>
-    <div class="pills" id="optPills"><div class="pill on" data-v="legal">Legal Fees</div><div class="pill on" data-v="broker">Brokerage</div><div class="pill on" data-v="mutation">Mutation</div><div class="pill on" data-v="incidental">Deed Writer</div><div class="pill" data-v="interior">Interior Est.</div><div class="pill" data-v="society">Society Deposit</div></div>
-  </div>
-  <!-- STATIC SEO CONTENT — visible to Google, useful to users -->
-<div id="seoBlock" style="padding:0 16px;margin-bottom:4px">
-  <div style="background:#fff;border:1px solid rgba(85,52,181,0.15);border-radius:14px;padding:16px 18px;margin-bottom:12px;box-shadow:0 2px 16px rgba(45,27,105,0.12)">
-    <h2 style="font-size:15px;font-weight:700;color:#3D2490;margin-bottom:10px">
-      📊 Flat Registration Costs in Kolkata & West Bengal (2026)
-    </h2>
-    <table style="width:100%;border-collapse:collapse;font-size:13px">
-      <tr style="border-bottom:1px solid #F4F0FD">
-        <td style="padding:8px 4px;color:#5534B5;font-weight:600">Stamp Duty (KMC / Howrah Corp)</td>
-        <td style="padding:8px 4px;text-align:right;font-weight:700;color:#1A0D40">6% (up to ₹1Cr) · 7% (above)</td>
-      </tr>
-      <tr style="border-bottom:1px solid #F4F0FD">
-        <td style="padding:8px 4px;color:#5534B5;font-weight:600">Stamp Duty (Municipality / Rural)</td>
-        <td style="padding:8px 4px;text-align:right;font-weight:700;color:#1A0D40">5% (up to ₹1Cr) · 6% (above)</td>
-      </tr>
-      <tr style="border-bottom:1px solid #F4F0FD">
-        <td style="padding:8px 4px;color:#5534B5;font-weight:600">Registration Fee</td>
-        <td style="padding:8px 4px;text-align:right;font-weight:700;color:#1A0D40">1% of property value</td>
-      </tr>
-      <tr style="border-bottom:1px solid #F4F0FD">
-        <td style="padding:8px 4px;color:#5534B5;font-weight:600">GST (Under Construction)</td>
-        <td style="padding:8px 4px;text-align:right;font-weight:700;color:#1A0D40">1% (affordable) · 5% (standard)</td>
-      </tr>
-      <tr style="border-bottom:1px solid #F4F0FD">
-        <td style="padding:8px 4px;color:#5534B5;font-weight:600">GST (Ready to Move / Resale)</td>
-        <td style="padding:8px 4px;text-align:right;font-weight:700;color:#1A0D40">Nil</td>
-      </tr>
-      <tr style="border-bottom:1px solid #F4F0FD">
-        <td style="padding:8px 4px;color:#5534B5;font-weight:600">Mutation (KMC / Howrah)</td>
-        <td style="padding:8px 4px;text-align:right;font-weight:700;color:#1A0D40">~₹20/sq ft (min ₹5,000)</td>
-      </tr>
-      <tr style="border-bottom:1px solid #F4F0FD">
-        <td style="padding:8px 4px;color:#5534B5;font-weight:600">Mutation (NKDA / New Town — First Transfer)</td>
-        <td style="padding:8px 4px;text-align:right;font-weight:700;color:#1A0D40">₹80/sq ft + ₹500 fee</td>
-      </tr>
-      <tr style="border-bottom:1px solid #F4F0FD">
-        <td style="padding:8px 4px;color:#5534B5;font-weight:600">Mutation (NKDA / New Town — Resale)</td>
-        <td style="padding:8px 4px;text-align:right;font-weight:700;color:#1A0D40">0.5% of deed value + ₹500 fee</td>
-      </tr>
-      <tr style="border-bottom:1px solid #F4F0FD">
-        <td style="padding:8px 4px;color:#5534B5;font-weight:600">Mutation (Panchayat / Rural)</td>
-        <td style="padding:8px 4px;text-align:right;font-weight:700;color:#1A0D40">~₹500 flat (BLRO)</td>
-      </tr>
-      <tr>
-        <td style="padding:8px 4px;color:#5534B5;font-weight:600">TDS (above ₹50L)</td>
-        <td style="padding:8px 4px;text-align:right;font-weight:700;color:#1A0D40">1% deductible by buyer</td>
-      </tr>
-    </table>
-    <p style="font-size:11px;color:#7B6DAA;margin-top:10px;line-height:1.5">
-      Rates as per WB Registration Dept & NKDA, 2026. Total additional cost typically 10–14% of agreement value. NKDA mutation rates apply to New Town (Rajarhat) properties under HIDCO / WBHB. Use the calculator below for your exact figure.
-    </p>
-  </div>
-</div>
-<div class="alerts-wrap" id="alerts"></div>
+
+  <!-- ⑦ GST Lock Badge — shown dynamically -->
+  <div id="gstLockWrap" style="margin-top:12px"></div>
+
+  <div class="alerts-wrap" id="alerts"></div>
+
+  <!-- True Cost result — visible immediately above the rates table -->
   <div class="shock-box" id="shockBox">
     <div class="shock-top"><div class="shock-left"><div class="shock-eyebrow">True cost of ownership</div><div class="shock-price" id="trueTotal">₹0</div></div><div class="shock-delta"><div class="shock-delta-label">HIDDEN</div><div class="shock-delta-val" id="deltaVal">+0%</div></div></div>
     <hr class="shock-divider"><div class="shock-sub" id="shockDetail">—</div>
   </div>
   <div class="summary-row" id="sumCards"></div>
+
+  <!-- ⑤ Expandable rates reference card -->
+  <div class="expand-card">
+    <div class="expand-header" onclick="toggleRatesCard()">
+      <div class="expand-header-left">
+        <div>
+          <div class="expand-title">📊 Current Rates — Kolkata &amp; WB (2026)</div>
+          <div class="expand-subtitle">Tap to view stamp duty, GST, mutation &amp; registration rates</div>
+        </div>
+      </div>
+      <div class="expand-toggle" id="expandToggle">▼</div>
+    </div>
+    <div class="expand-body" id="expandBody">
+      <div class="expand-inner">
+        <table style="width:100%;border-collapse:collapse;font-size:13px">
+          <tr style="border-bottom:1px solid #F4F0FD">
+            <td style="padding:8px 4px;color:#5534B5;font-weight:600">Stamp Duty (KMC / Howrah Corp)</td>
+            <td style="padding:8px 4px;text-align:right;font-weight:700;color:#1A0D40">6% (up to ₹1Cr) · 7% (above)</td>
+          </tr>
+          <tr style="border-bottom:1px solid #F4F0FD">
+            <td style="padding:8px 4px;color:#5534B5;font-weight:600">Stamp Duty (Municipality / Rural)</td>
+            <td style="padding:8px 4px;text-align:right;font-weight:700;color:#1A0D40">5% (up to ₹1Cr) · 6% (above)</td>
+          </tr>
+          <tr style="border-bottom:1px solid #F4F0FD">
+            <td style="padding:8px 4px;color:#5534B5;font-weight:600">Registration Fee</td>
+            <td style="padding:8px 4px;text-align:right;font-weight:700;color:#1A0D40">1% of property value</td>
+          </tr>
+          <tr style="border-bottom:1px solid #F4F0FD">
+            <td style="padding:8px 4px;color:#5534B5;font-weight:600">GST (Under Construction)</td>
+            <td style="padding:8px 4px;text-align:right;font-weight:700;color:#1A0D40">1% (affordable) · 5% (standard)</td>
+          </tr>
+          <tr style="border-bottom:1px solid #F4F0FD">
+            <td style="padding:8px 4px;color:#5534B5;font-weight:600">GST (Ready to Move / Resale)</td>
+            <td style="padding:8px 4px;text-align:right;font-weight:700;color:#1A0D40">Nil</td>
+          </tr>
+          <tr style="border-bottom:1px solid #F4F0FD">
+            <td style="padding:8px 4px;color:#5534B5;font-weight:600">Mutation (KMC / Howrah)</td>
+            <td style="padding:8px 4px;text-align:right;font-weight:700;color:#1A0D40">~₹20/sq ft (min ₹5,000)</td>
+          </tr>
+          <tr style="border-bottom:1px solid #F4F0FD">
+            <td style="padding:8px 4px;color:#5534B5;font-weight:600">Mutation (NKDA — First Transfer)</td>
+            <td style="padding:8px 4px;text-align:right;font-weight:700;color:#1A0D40">₹80/sq ft + ₹500 fee</td>
+          </tr>
+          <tr style="border-bottom:1px solid #F4F0FD">
+            <td style="padding:8px 4px;color:#5534B5;font-weight:600">Mutation (NKDA — Resale)</td>
+            <td style="padding:8px 4px;text-align:right;font-weight:700;color:#1A0D40">0.5% of deed value + ₹500 fee</td>
+          </tr>
+          <tr style="border-bottom:1px solid #F4F0FD">
+            <td style="padding:8px 4px;color:#5534B5;font-weight:600">Mutation (Panchayat / Rural)</td>
+            <td style="padding:8px 4px;text-align:right;font-weight:700;color:#1A0D40">~₹500 flat (BLRO)</td>
+          </tr>
+          <tr>
+            <td style="padding:8px 4px;color:#5534B5;font-weight:600">TDS (above ₹50L)</td>
+            <td style="padding:8px 4px;text-align:right;font-weight:700;color:#1A0D40">1% deductible by buyer</td>
+          </tr>
+        </table>
+        <p style="font-size:11px;color:#7B6DAA;margin-top:10px;line-height:1.5">Rates as per WB Registration Dept &amp; NKDA, 2026. NKDA mutation rates apply to New Town (Rajarhat) properties under HIDCO / WBHB.</p>
+      </div>
+    </div>
+  </div>
+
   <div class="section" style="margin-top:12px"><div class="sec-label">Full Breakdown</div><div class="card"><table class="bk-table" id="bkTable"></table></div></div>
   <div class="section"><div class="sec-label">Cost Composition</div><div class="card" id="barChart"></div></div>
   <div class="section"><div class="sec-label">Smart Tips</div><div id="tipsContainer"></div></div>
@@ -426,6 +574,46 @@ let S={val:8000000,area:900,ptype:'res_uc',loc:'kmc',opts:{legal:true,broker:tru
 const INR=n=>'₹'+Math.round(n).toLocaleString('en-IN');
 const PCT=n=>(n>=0?'+':'')+(n*100).toFixed(1)+'%';
 
+/* ⑦ GST classification logic */
+function classifyGST(val, areaSqFt, ptype){
+  /* Only for under-construction residential */
+  if(ptype==='commercial'){return{rate:CFG.gst.commercial_rate,label:'12%',type:'commercial',reason:'Commercial properties attract 12% GST on under-construction purchases.'}}
+  if(ptype!=='res_uc'){return{rate:0,label:'Nil',type:'nil',reason:ptype==='res_rtm'?'No GST: This property has received its Occupancy Certificate (OC) — GST is nil on ready-to-move properties.':'No GST: Resale transactions are not subject to GST.'}}
+  const areaSqM = areaSqFt * 0.0929;
+  const withinValueLimit = val <= CFG.gst.affordable_max_value;
+  const withinAreaLimit  = areaSqM <= CFG.gst.affordable_max_sqm_metro; /* 60 sq m = ~645 sq ft */
+  if(withinValueLimit && withinAreaLimit){
+    return{
+      rate:CFG.gst.affordable_rate,
+      label:'1%',
+      type:'affordable',
+      reason:`GST locked at <strong>1% — Affordable Housing</strong>. Your property meets both criteria: Agreement value ≤ ₹45 Lakhs (yours: ${INR(val)}) AND size ≤ 60 sq.m / 645 sq ft (yours: ${areaSqFt} sq ft ≈ ${areaSqM.toFixed(1)} sq.m).`
+    };
+  }
+  let exceeded=[];
+  if(!withinValueLimit) exceeded.push(`Agreement value ${INR(val)} exceeds the ₹45 Lakh ceiling`);
+  if(!withinAreaLimit)  exceeded.push(`Property size ${areaSqFt} sq ft (${areaSqM.toFixed(1)} sq.m) exceeds the 60 sq.m ceiling`);
+  return{
+    rate:CFG.gst.standard_rate,
+    label:'5%',
+    type:'standard',
+    reason:`GST locked at <strong>5% — Non-Affordable Housing</strong>. ${exceeded.join(' and ')}. Both conditions must be met for the 1% affordable rate.`
+  };
+}
+
+function renderGSTLockBadge(gstInfo){
+  const wrap=document.getElementById('gstLockWrap');
+  if(gstInfo.type==='nil'||gstInfo.type==='n/a'){
+    wrap.innerHTML=`<div class="gst-lock-badge gst-lock-nil"><span class="gst-lock-icon">✅</span><div class="gst-lock-text"><strong>GST: Nil</strong>${gstInfo.reason}</div></div>`;
+  } else if(gstInfo.type==='affordable'){
+    wrap.innerHTML=`<div class="gst-lock-badge gst-lock-affordable"><span class="gst-lock-icon">🔒</span><div class="gst-lock-text">${gstInfo.reason}</div></div>`;
+  } else if(gstInfo.type==='standard'){
+    wrap.innerHTML=`<div class="gst-lock-badge gst-lock-standard"><span class="gst-lock-icon">🔒</span><div class="gst-lock-text">${gstInfo.reason}</div></div>`;
+  } else {
+    wrap.innerHTML=`<div class="gst-lock-badge gst-lock-standard"><span class="gst-lock-icon">🏗️</span><div class="gst-lock-text"><strong>GST: ${gstInfo.label}</strong> — Commercial under-construction rate.</div></div>`;
+  }
+}
+
 function calc(){
   const val=S.val,area=S.area,pt=S.ptype,loc=S.loc,opts=S.opts,C=CFG;
   const isUC=pt==='res_uc',isRTM=pt==='res_rtm',isResale=pt==='resale',isComm=pt==='commercial',isNKDA=loc==='nkda_new'||loc==='nkda_resale',isKMCMuni=loc==='kmc'||loc==='muni'||isNKDA;
@@ -433,8 +621,13 @@ function calc(){
   if(isComm)sdRate=isKMCMuni?C.stamp_duty.commercial_kmc_muni:C.stamp_duty.commercial_panchayat;
   else{if(isKMCMuni)sdRate=val>10000000?C.stamp_duty.kmc_muni_above_1cr:C.stamp_duty.kmc_muni_upto_1cr;else sdRate=val>10000000?C.stamp_duty.panchayat_above_1cr:C.stamp_duty.panchayat_upto_1cr}
   const sd=val*sdRate,reg=val*C.registration.effective_rate;
-  let gst=0,gstRate=0,gstNote='',isAffordable=false;
-  if(isUC){const cs=area*0.0929;isAffordable=val<=C.gst.affordable_max_value&&cs<=C.gst.affordable_max_sqm_metro;if(isComm){gstRate=C.gst.commercial_rate;gstNote='12%'}else if(isAffordable){gstRate=C.gst.affordable_rate;gstNote='1%'}else{gstRate=C.gst.standard_rate;gstNote='5%'}gst=val*gstRate}else{gstNote=isRTM?'Nil':isResale?'Nil':'N/A'}
+
+  /* ⑦ Use smart GST classification */
+  const gstInfo=classifyGST(val,area,pt);
+  const gst=val*gstInfo.rate;
+  const gstNote=gstInfo.label;
+  const isAffordable=gstInfo.type==='affordable';
+
   let mutation=0,mutNote='';if(opts.mutation){if(loc==='nkda_new'||loc==='nkda_resale'){if(loc==='nkda_resale'){mutation=val*(C.mutation.nkda_resale_rate||0.005)+(C.mutation.nkda_application_fee||500);mutNote='0.5% of value'}else{mutation=area*(C.mutation.nkda_residential_per_sqft||80)+(C.mutation.nkda_application_fee||500);mutNote='₹80/sq ft + ₹500'}}else if(isKMCMuni){mutation=Math.max(C.mutation.kmc_muni_min,area*C.mutation.kmc_muni_per_sqft);mutNote='~₹'+C.mutation.kmc_muni_per_sqft+'/sq ft'}else{mutation=C.mutation.panchayat_flat;mutNote='BLRO'}}
   let legal=0,legalNote='';if(opts.legal){const rate=val>=C.legal.high_value_threshold?C.legal.high_value_rate:C.legal.standard_rate;legal=Math.max(C.legal.minimum_fee,val*rate);legalNote=val>=C.legal.high_value_threshold?'0.5%':'1%'}
   let broker=0,brokerNote='';if(opts.broker){if(pt==='res_uc'){broker=0;brokerNote='Nil'}else{broker=val*C.brokerage.resale_rate;brokerNote='1%'}}
@@ -442,17 +635,21 @@ function calc(){
   let interior=0;if(opts.interior)interior=area*C.interior.rate_per_sqft;
   let society=0;if(opts.society){if(area<600)society=C.society.upto_600sqft;else if(area<1000)society=C.society.upto_1000sqft;else if(area<1500)society=C.society.upto_1500sqft;else society=C.society.above_1500sqft}
   const tds=val>=C.tds.threshold?val*C.tds.rate:0,govtCharges=sd+reg+gst,profCharges=mutation+legal+broker+incidental+interior+society,totalAdditional=govtCharges+profCharges,trueTotal=val+totalAdditional,hiddenPct=totalAdditional/val;
-  return{val,area,ptype:pt,loc,opts,isUC,isRTM,isResale,isComm,isAffordable,isKMCMuni,sd,sdRate,reg,gst,gstRate,gstNote,mutation,mutNote,legal,legalNote,broker,brokerNote,incidental,interior,society,tds,govtCharges,profCharges,totalAdditional,trueTotal,hiddenPct};
+  return{val,area,ptype:pt,loc,opts,isUC,isRTM,isResale,isComm,isAffordable,isKMCMuni,sd,sdRate,reg,gst,gstRate:gstInfo.rate,gstNote,gstInfo,mutation,mutNote,legal,legalNote,broker,brokerNote,incidental,interior,society,tds,govtCharges,profCharges,totalAdditional,trueTotal,hiddenPct};
 }
 
 function render(){
-  const r=calc(),{val:v,sd,sdRate,reg,gst,gstNote,isAffordable,isUC,isRTM,isResale,mutation,mutNote,legal,legalNote,broker,brokerNote,incidental,interior,society,tds,govtCharges,profCharges,totalAdditional,trueTotal,hiddenPct,opts}=r;
+  const r=calc(),{val:v,sd,sdRate,reg,gst,gstNote,gstInfo,isAffordable,isUC,isRTM,isResale,mutation,mutNote,legal,legalNote,broker,brokerNote,incidental,interior,society,tds,govtCharges,profCharges,totalAdditional,trueTotal,hiddenPct,opts}=r;
+
+  /* ⑦ Render GST lock badge */
+  renderGSTLockBadge(gstInfo);
+
   document.getElementById('trueTotal').textContent=INR(trueTotal);
   windowTotalCost=trueTotal;updateEMI();
   document.getElementById('deltaVal').textContent=PCT(hiddenPct);
   document.getElementById('shockDetail').innerHTML=`Govt taxes: <strong>${INR(govtCharges)}</strong> · Prof. fees: <strong>${INR(profCharges)}</strong>`;
   document.getElementById('heroExtra').textContent=PCT(hiddenPct).replace('+','~');
-  let alertsHTML='';if(v>=CFG.tds.threshold)alertsHTML+=`<div class="alert alert-red">⚠️ TDS Alert: Deduct 1% (${INR(tds)}) via Form 26QB</div>`;if(isAffordable)alertsHTML+=`<div class="alert alert-green">✓ Affordable Housing: 1% GST applies</div>`;if(isRTM||isResale)alertsHTML+=`<div class="alert alert-green">✓ No GST: OC received or resale</div>`;document.getElementById('alerts').innerHTML=alertsHTML;
+  let alertsHTML='';if(v>=CFG.tds.threshold)alertsHTML+=`<div class="alert alert-red">⚠️ TDS Alert: Deduct 1% (${INR(tds)}) via Form 26QB</div>`;document.getElementById('alerts').innerHTML=alertsHTML;
   document.getElementById('sumCards').innerHTML=`<div class="sum-card"><div class="sum-label">Govt. Charges</div><div class="sum-val">${INR(govtCharges)}</div></div><div class="sum-card"><div class="sum-label">Other Charges</div><div class="sum-val">${INR(profCharges)}</div></div><div class="sum-card accent"><div class="sum-label">Total Additional</div><div class="sum-val">${INR(totalAdditional)}</div></div><div class="sum-card accent"><div class="sum-label">True Cost</div><div class="sum-val">${INR(trueTotal)}</div></div>`;
   const rows=[{name:'Stamp duty',bc:'b-govt',bn:'Govt',note:`${(sdRate*100).toFixed(0)}%`,amt:sd},{name:'Registration',bc:'b-govt',bn:'Govt',note:'1%',amt:reg},{name:'GST',bc:isUC?(isAffordable?'b-nil':'b-gst'):'b-nil',bn:isUC?'GST':'Nil',note:gstNote,amt:gst},opts.mutation?{name:'Mutation',bc:'b-opt',bn:'Opt',note:mutNote,amt:mutation}:null,opts.legal?{name:'Legal',bc:'b-opt',bn:'Opt',note:legalNote,amt:legal}:null,opts.broker?{name:'Brokerage',bc:'b-opt',bn:'Opt',note:brokerNote,amt:broker}:null,opts.incidental?{name:'Deed writer',bc:'b-opt',bn:'Opt',note:'Misc',amt:incidental}:null,opts.interior?{name:'Interior',bc:'b-opt',bn:'Opt',note:'Estimate',amt:interior}:null,opts.society?{name:'Society',bc:'b-opt',bn:'Opt',note:'Deposit',amt:society}:null,v>=CFG.tds.threshold?{name:'TDS',bc:'b-tds',bn:'TDS',note:'Deducted',amt:tds}:null].filter(Boolean);
   let th='';rows.forEach(r=>{th+=`<tr><td><span class="row-name">${r.name}</span><span class="badge ${r.bc}">${r.bn}</span><span class="row-note">${r.note}</span></td><td>${r.amt===0?'—':INR(r.amt)}</td></tr>`});
@@ -461,11 +658,20 @@ function render(){
   const bd=[{l:'Stamp duty',v:sd,cls:'bar-purple'},{l:'Registration',v:reg,cls:'bar-purple'},{l:'GST',v:gst,cls:'bar-gold'},opts.mutation?{l:'Mutation',v:mutation,cls:'bar-pink'}:null,opts.legal?{l:'Legal',v:legal,cls:'bar-pink'}:null,opts.broker?{l:'Brokerage',v:broker,cls:'bar-pink'}:null].filter(d=>d&&d.v>0);
   const mx=Math.max(...bd.map(d=>d.v),1);
   document.getElementById('barChart').innerHTML=bd.map(d=>`<div class="bar-item"><div class="bar-top-row"><span class="bar-name">${d.l}</span><span>${INR(d.v)}</span></div><div class="bar-track"><div class="bar-fill ${d.cls}" style="width:${(d.v/mx*100).toFixed(1)}%"></div></div></div>`).join('');
-  let tips=[];if(isUC&&gst>0)tips.push(`Ready-to-move saves ${INR(gst)} in GST.`);if(v>=5000000)tips.push(`File TDS Form 26QB for ${INR(tds)}.`);if(!tips.length)tips.push('Complete cost picture. Verify before purchase.');
+  let tips=[];if(isUC&&gst>0)tips.push(`Choosing a ready-to-move property would save you ${INR(gst)} in GST.`);if(v>=5000000)tips.push(`TDS of 1% (${INR(tds)}) must be deducted from the seller's payment and filed via Form 26QB on the Income Tax portal.`);if(!tips.length)tips.push('Complete cost picture. Verify all figures with your legal advisor before purchase.');
   document.getElementById('tipsContainer').innerHTML=tips.map(t=>`<div class="tip">${t}</div>`).join('');
   document.getElementById('val').value=S.val;
   document.getElementById('area').value=S.area;
   document.getElementById('ptype').value=S.ptype;
+}
+
+/* ⑤ Expandable rates card */
+function toggleRatesCard(){
+  const body=document.getElementById('expandBody');
+  const toggle=document.getElementById('expandToggle');
+  const isOpen=body.classList.contains('open');
+  body.classList.toggle('open',!isOpen);
+  toggle.classList.toggle('open',!isOpen);
 }
 
 function calculateEMI(P,annualRate,years){const r=annualRate/12/100,n=years*12;if(r===0||n===0)return P/n;return P*r*Math.pow(1+r,n)/(Math.pow(1+r,n)-1)}
@@ -493,10 +699,33 @@ function switchTab(tab){
 }
 
 function showToast(msg,dur=2500){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),dur)}
-function singleGroup(id,key){document.getElementById(id).querySelectorAll('.pill').forEach(p=>{p.addEventListener('click',()=>{document.getElementById(id).querySelectorAll('.pill').forEach(x=>x.classList.remove('on'));p.classList.add('on');S[key]=p.dataset.v;render()})})}
-document.getElementById('locPills').querySelectorAll('.pill').forEach(p=>{p.addEventListener('click',()=>{document.getElementById('locPills').querySelectorAll('.pill').forEach(x=>x.classList.remove('on'));p.classList.add('on');S.loc=p.dataset.v;const isNKDA=p.dataset.v==='nkda_new';document.getElementById('nkdaTransferWrap').style.display=isNKDA?'block':'none';if(isNKDA)S.loc='nkda_new';render()})});
+
+/* ⑥ Location grid — single select */
+document.getElementById('locGrid').querySelectorAll('.loc-card').forEach(c=>{
+  c.addEventListener('click',()=>{
+    document.getElementById('locGrid').querySelectorAll('.loc-card').forEach(x=>x.classList.remove('on'));
+    c.classList.add('on');
+    S.loc=c.dataset.v;
+    const isNKDA=c.dataset.v==='nkda_new';
+    document.getElementById('nkdaTransferWrap').style.display=isNKDA?'block':'none';
+    if(isNKDA)S.loc='nkda_new';
+    render();
+  });
+});
+
 document.getElementById('nkdaTypePills').querySelectorAll('.pill').forEach(p=>{p.addEventListener('click',()=>{document.getElementById('nkdaTypePills').querySelectorAll('.pill').forEach(x=>x.classList.remove('on'));p.classList.add('on');S.loc=p.dataset.v;render()})});
-document.getElementById('optPills').querySelectorAll('.pill').forEach(p=>{p.addEventListener('click',()=>{p.classList.toggle('on');S.opts[p.dataset.v]=p.classList.contains('on');render()})});
+
+/* ⑥ Opt grid — multi toggle */
+document.getElementById('optGrid').querySelectorAll('.opt-item').forEach(item=>{
+  item.addEventListener('click',()=>{
+    item.classList.toggle('on');
+    const check=item.querySelector('.opt-item-check');
+    check.textContent=item.classList.contains('on')?'✓':'';
+    S.opts[item.dataset.v]=item.classList.contains('on');
+    render();
+  });
+});
+
 document.getElementById('val').addEventListener('input',e=>{S.val=parseFloat(e.target.value)||0;render()});
 document.getElementById('area').addEventListener('input',e=>{S.area=parseFloat(e.target.value)||0;render()});
 document.getElementById('ptype').addEventListener('change',e=>{S.ptype=e.target.value;render()});
