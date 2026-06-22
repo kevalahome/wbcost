@@ -63,7 +63,7 @@
 
   "interior": {
     "_note": "Rough estimate for basic interior fit-out",
-    "rate_per_sqft": 2000
+    "rate_per_sqft": 1500
   },
 
   "society": {
