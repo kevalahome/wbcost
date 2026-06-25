@@ -1,0 +1,76 @@
+# Kevala Home — WB Property Total Cost Calculator
+
+> Free Progressive Web App to calculate the true all-in cost of buying a property in West Bengal — stamp duty, GST, registration fee, mutation, legal fees, brokerage, TDS and more. Accurate for Kolkata (KMC), NKDA New Town, Municipality, and Panchayat/Rural areas. Works offline.
+
+The WB Property Total Cost Calculator by Kevala Home helps buyers understand the real cost of a property purchase in West Bengal — not just the agreement value, but every government charge and professional fee on top of it. Additional charges typically add 10–14% above the quoted price. The tool is free, requires no login, and is installable as a PWA.
+
+## Core Function
+
+- [Total Cost Calculator](https://cost.kevalahome.com/): Enter the agreement value, property size (sq ft), property type, and location area. The calculator instantly outputs a full cost breakdown — stamp duty, registration fee, GST (with affordable vs. standard housing classification), mutation charges, legal fees, brokerage, deed writer charges, interior estimate, society deposit, and a TDS alert for purchases above ₹50 lakh.
+
+## Inputs
+
+- **Agreement Value (₹)**: The price in the sale agreement
+- **Property Size (sq ft)**: Carpet, built-up, or super built-up area — used for mutation calculation
+- **Property Type**: Residential Under-Construction, Residential Ready-to-Move (OC received), Residential Resale, or Commercial
+- **Location**: KMC / Howrah Corporation, NKDA New Town (Rajarhat), Municipality, or Panchayat / Rural
+- **NKDA Transfer Type** (if New Town selected): First Transfer from Developer, or Resale / Secondary
+- **Optional charges to include**: Legal fees, brokerage, mutation, deed writer charges, interior estimate, society/corpus deposit
+
+## Outputs
+
+- **True cost of ownership**: Agreement value + all additional charges
+- **Hidden cost percentage**: How much extra above the agreement value
+- **Government charges subtotal**: Stamp duty + registration + GST
+- **Professional / optional charges subtotal**
+- **Full line-item breakdown table**: Every charge with its rate, badge (Govt / GST / Optional / TDS), and amount
+- **Cost composition bar chart**: Visual breakdown by charge category
+- **Smart tips**: Contextual savings alerts (e.g. GST saving on ready-to-move vs. under-construction)
+- **TDS alert**: 1% TDS deduction reminder for purchases above ₹50 lakh, with Form 26QB reference
+- **EMI Calculator** (separate tab): Loan amount based on true cost, configurable down payment %, interest rate, and tenure in years
+
+## Rates Covered (as of 2026)
+
+- **Stamp Duty — KMC / Howrah / Municipality**: 6% (up to ₹1 crore), 7% (above ₹1 crore)
+- **Stamp Duty — Panchayat / Rural**: 5% (up to ₹1 crore), 6% (above ₹1 crore)
+- **Registration Fee**: 1% of property value (all areas)
+- **GST — Affordable Housing** (under-construction only, value ≤ ₹45L AND size ≤ 60 sq.m): 1%
+- **GST — Standard Under-Construction**: 5%
+- **GST — Ready-to-Move (OC) / Resale**: Nil
+- **GST — Commercial Under-Construction**: 12%
+- **Mutation — KMC / Howrah / Municipality**: ~₹20/sq ft (minimum ₹5,000)
+- **Mutation — NKDA New Town (First Transfer)**: ₹80/sq ft + ₹500 application fee
+- **Mutation — NKDA New Town (Resale)**: 0.5% of deed value + ₹500 application fee
+- **Mutation — Panchayat / Rural**: ~₹500 flat fee at BLRO
+- **TDS**: 1% on purchases above ₹50 lakh (deducted by buyer via Form 26QB)
+- **Legal / Advocate Fee**: ~1% (standard), ~0.5% (above ₹1 crore), minimum ₹10,000
+- **Brokerage**: 1% for resale; nil for new builder purchases
+- **Deed Writer & Incidentals**: ₹5,000–₹15,000 depending on value
+- **Interior Estimate**: ~₹1,500/sq ft (rough estimate, optional)
+- **Society / Corpus Deposit**: ₹50,000–₹1,50,000 depending on size (optional)
+
+Rates are loaded from a remotely hosted config file (config.json on GitHub) and cached locally — the app uses the cached rates when offline and refreshes silently in the background.
+
+## Key Pages
+
+- [Calculator](https://cost.kevalahome.com/): Main cost calculator screen
+- [EMI Calculator](https://cost.kevalahome.com/#emi): Monthly EMI estimate based on true cost, configurable rate and tenure
+- [About & Rates](https://cost.kevalahome.com/#about): What the calculator covers, official source links (WB Registration Dept, rera.wb.gov.in)
+
+## Related Tools
+
+- [WB RERA Check](https://wbrera.kevalahome.com/): Verify if a project is RERA registered before buying — linked directly from within the cost calculator
+- [WB Project Finder](https://find.kevalahome.com/): Search RERA-verified projects by district, type, and possession year
+- [Main Site](https://kevalahome.com/): Kevala Home homepage
+- Contact: info@kevalahome.com
+
+## Technical Notes
+
+Single-page PWA. Rates are driven by a remotely fetched JSON config file (`config.json`) with a 3-day local cache — enabling rate updates without an app release. No backend, no user data collected, no login. Installable on Android (Chrome) and iOS (Safari) for offline use.
+
+## What This Tool Does Not Do
+
+- It does not provide a legally binding cost estimate — figures should be verified with a registered advocate or sub-registrar before any transaction
+- It does not cover states outside West Bengal
+- It does not connect to any bank or lender — the EMI calculator is illustrative only
+- It does not account for circle rate (guidance value) differences, which may affect actual stamp duty if the circle rate exceeds the agreement value
